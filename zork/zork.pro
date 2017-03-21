@@ -24,8 +24,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        game.cpp
+        game.cpp \
+    zork/Character.cpp \
+    zork/Command.cpp \
+    zork/CommandWords.cpp \
+    zork/item.cpp \
+    zork/Parser.cpp \
+    zork/Room.cpp \
+    zork/weapon.cpp \
+    zork/ZorkUL.cpp
 
-HEADERS  += game.h
+HEADERS  += game.h \
+    zork/Character.h \
+    zork/Command.h \
+    zork/CommandWords.h \
+    zork/includes.h \
+    zork/item.h \
+    zork/Parser.h \
+    zork/Room.h \
+    zork/weapon.h \
+    zork/ZorkUL.h
 
 FORMS    += game.ui
