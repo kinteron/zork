@@ -2,11 +2,8 @@
 #define COMMANDWORDS_H_
 
 #include "includes.h"
-
-#include <iostream>
-#include <string>
 #include <vector>
-using namespace std;
+#include <string>
 
 class CommandWords {
 private:

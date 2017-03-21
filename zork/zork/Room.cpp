@@ -1,13 +1,13 @@
 #include "Room.h"
 
-
 Room::Room(string description){
-	this->description = description;
+    //calls Item
+    this->name = description;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 	if (north != NULL)
-		exits["north"] = north;
+        exits["north"] = north;
 	if (east != NULL)
 		exits["east"] = east;
 	if (south != NULL)
@@ -16,12 +16,17 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 		exits["west"] = west;
 }
 
+void Room::addEnemy(){
+    Enemy e("fleaman", 20.f, 8);
+    this->enemy = &e;
+}
+
 string Room::shortDescription() {
-	return description;
+    return name;
 }
 
 string Room::longDescription() {
-	return "room = " + description + ".\n" + displayItem() + exitString();
+    return "room = " + shortDescription() + ".\n" + displayItem() + exitString();
 }
 
 string Room::exitString() {
@@ -34,18 +39,15 @@ string Room::exitString() {
 
 Room* Room::nextRoom(string direction) {
 	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
-	if (next == exits.end())
+    if (next == exits.end())
 		return NULL; // if exits.end() was returned, there's no room in that direction.
 	return next->second; // If there is a room, remove the "second" (Room*)
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
 void Room::addItem(Item *inItem) {
-    if(limit++ < 3)
-        itemsInRoom.push_back(*inItem);
-    else
-//        OnItemNotAddedToRoom();   trigger signal
-        cout << "couldn't add item to room" <<endl;
+    itemsInRoom.push_back(*inItem);
+
 }
 
 string Room::displayItem() {
@@ -68,7 +70,9 @@ int Room::numberOfItems() {
     return itemsInRoom.size();
 }
 
-
+void Room::removeItemFromRoom(){
+    itemsInRoom.clear();
+}
 
 Item* Room::isItemInRoom(string inString)
 {

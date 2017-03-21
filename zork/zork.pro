@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-03-21T16:27:55
+# Project created by QtCreator 2017-03-21T17:08:44
 #
 #-------------------------------------------------
 
@@ -25,24 +25,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         game.cpp \
-    zork/Character.cpp \
+    zork/ZorkUL.cpp \
     zork/Command.cpp \
     zork/CommandWords.cpp \
-    zork/item.cpp \
-    zork/Parser.cpp \
     zork/Room.cpp \
+    zork/Parser.cpp \
+    zork/item.cpp \
     zork/weapon.cpp \
-    zork/ZorkUL.cpp
+    zork/Character.cpp \
+    zork/enemy.cpp
 
 HEADERS  += game.h \
-    zork/Character.h \
+    zork/ZorkUL.h \
     zork/Command.h \
-    zork/CommandWords.h \
     zork/includes.h \
-    zork/item.h \
-    zork/Parser.h \
+    zork/CommandWords.h \
     zork/Room.h \
+    zork/Parser.h \
+    zork/item.h \
     zork/weapon.h \
-    zork/ZorkUL.h
+    zork/Character.h \
+    zork/enemy.h
 
-FORMS    += game.ui
+FORMS += \
+    game.ui

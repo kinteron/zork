@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ZorkUL_t {
-    QByteArrayData data[9];
-    char stringdata0[65];
+    QByteArrayData data[6];
+    char stringdata0[40];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,18 +32,14 @@ struct qt_meta_stringdata_ZorkUL_t {
 static const qt_meta_stringdata_ZorkUL_t qt_meta_stringdata_ZorkUL = {
     {
 QT_MOC_LITERAL(0, 0, 6), // "ZorkUL"
-QT_MOC_LITERAL(1, 7, 11), // "playingGame"
-QT_MOC_LITERAL(2, 19, 0), // ""
-QT_MOC_LITERAL(3, 20, 5), // "going"
-QT_MOC_LITERAL(4, 26, 7), // "btnName"
-QT_MOC_LITERAL(5, 34, 8), // "teleport"
-QT_MOC_LITERAL(6, 43, 6), // "attack"
-QT_MOC_LITERAL(7, 50, 5), // "equip"
-QT_MOC_LITERAL(8, 56, 8) // "takeItem"
+QT_MOC_LITERAL(1, 7, 5), // "going"
+QT_MOC_LITERAL(2, 13, 0), // ""
+QT_MOC_LITERAL(3, 14, 7), // "btnName"
+QT_MOC_LITERAL(4, 22, 8), // "teleport"
+QT_MOC_LITERAL(5, 31, 8) // "takeItem"
 
     },
-    "ZorkUL\0playingGame\0\0going\0btnName\0"
-    "teleport\0attack\0equip\0takeItem"
+    "ZorkUL\0going\0\0btnName\0teleport\0takeItem"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,31 +49,21 @@ static const uint qt_meta_data_ZorkUL[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
-
- // signals: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x06 /* Public */,
+       0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       3,    1,   45,    2, 0x08 /* Private */,
-       5,    0,   48,    2, 0x08 /* Private */,
-       6,    0,   49,    2, 0x08 /* Private */,
-       7,    1,   50,    2, 0x08 /* Private */,
-       8,    0,   53,    2, 0x08 /* Private */,
-
- // signals: parameters
-    QMetaType::Void,
+       1,    1,   29,    2, 0x08 /* Private */,
+       4,    0,   32,    2, 0x08 /* Private */,
+       5,    0,   33,    2, 0x08 /* Private */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,    4,
+    QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
 
        0        // eod
@@ -89,23 +75,10 @@ void ZorkUL::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         ZorkUL *_t = static_cast<ZorkUL *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->playingGame(); break;
-        case 1: _t->going((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 2: _t->teleport(); break;
-        case 3: _t->attack(); break;
-        case 4: _t->equip((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 5: _t->takeItem(); break;
+        case 0: _t->going((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: _t->teleport(); break;
+        case 2: _t->takeItem(); break;
         default: ;
-        }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        void **func = reinterpret_cast<void **>(_a[1]);
-        {
-            typedef void (ZorkUL::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ZorkUL::playingGame)) {
-                *result = 0;
-                return;
-            }
         }
     }
 }
@@ -135,21 +108,15 @@ int ZorkUL::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 3;
     }
     return _id;
-}
-
-// SIGNAL 0
-void ZorkUL::playingGame()
-{
-    QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

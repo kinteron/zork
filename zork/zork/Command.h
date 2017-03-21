@@ -2,7 +2,6 @@
 #define COMMAND_H_
 
 #include "includes.h"
-
 #include <string>
 
 class Command {
