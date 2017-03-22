@@ -7,6 +7,9 @@
 #include <iostream>
 #include <QSignalMapper>
 #include <QMainWindow>
+#include <QStringListModel>
+#include <QStringList>
+#include <QModelIndex>
 
 namespace Ui{
 class Game;
@@ -19,9 +22,16 @@ public:
     explicit Game(QWidget *parent = 0);
     ~Game();
 
+private slots:
+    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+    void on_itemClicked(QModelIndex index);
+    void on_itemDoubleClicked(QModelIndex index);
+
 private:
     Ui::Game *ui;
     ZorkUL zork;
     QSignalMapper *mapper;
+
+    QStringListModel *model;
 };
 #endif // GAME_H

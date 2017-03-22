@@ -18,6 +18,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -47,10 +48,10 @@ public:
     QPushButton *btnPick;
     QPushButton *btnEquip;
     QListView *listItems;
-    QListView *enemyStats;
     QLabel *lblEnemy;
     QLabel *lblRoom;
     QTextEdit *editWeapon;
+    QListWidget *enemyStats;
     QMenuBar *menuBar;
     QMenu *menuZork;
     QToolBar *mainToolBar;
@@ -122,9 +123,6 @@ public:
         listItems = new QListView(centralWidget);
         listItems->setObjectName(QStringLiteral("listItems"));
         listItems->setGeometry(QRect(120, 180, 131, 91));
-        enemyStats = new QListView(centralWidget);
-        enemyStats->setObjectName(QStringLiteral("enemyStats"));
-        enemyStats->setGeometry(QRect(10, 180, 111, 91));
         lblEnemy = new QLabel(centralWidget);
         lblEnemy->setObjectName(QStringLiteral("lblEnemy"));
         lblEnemy->setGeometry(QRect(10, 270, 55, 16));
@@ -134,6 +132,9 @@ public:
         editWeapon = new QTextEdit(centralWidget);
         editWeapon->setObjectName(QStringLiteral("editWeapon"));
         editWeapon->setGeometry(QRect(330, 240, 81, 31));
+        enemyStats = new QListWidget(centralWidget);
+        enemyStats->setObjectName(QStringLiteral("enemyStats"));
+        enemyStats->setGeometry(QRect(10, 180, 111, 91));
         Game->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Game);
         menuBar->setObjectName(QStringLiteral("menuBar"));

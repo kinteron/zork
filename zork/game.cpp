@@ -2,6 +2,7 @@
 #include "ui_game.h"
 
 
+
 Game::Game(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::Game)
 {
@@ -17,6 +18,20 @@ Game::Game(QWidget *parent)
     QPushButton *weapon = ui->btnWeapon;
     QPushButton *pick = ui->btnPick;
     QPushButton *equip = ui->btnEquip;
+
+    QListView *itemList = ui->listItems;
+    QListView *foeStatus = ui->enemyStats;
+    itemList->setUniformItemSizes(true); //every item has the same size
+
+    //for the listview
+    model = new QStringListModel(this);    //this?
+    QStringList list;
+    list << "hu" << "ren" << "sohn";
+    model->setStringList(list);
+    //model can be applied to any view, in order to update all views
+    itemList->setModel(model);
+    QModelIndex currentIndex = itemList->selectionModel()->currentIndex();
+
 
     //in order to use different signals such as different buttons and send them to the same slot
     mapper = new QSignalMapper();        //heap
@@ -36,6 +51,30 @@ Game::Game(QWidget *parent)
     connect(mapper, SIGNAL(mapped(QString)), &zork, SLOT(going(QString)));
     connect(teleport, SIGNAL(released()), &zork, SLOT(teleport()));
     connect(pick, SIGNAL(released()), &zork, SLOT(takeItem()));
+
+    itemList->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
+    itemList->selectionModel()->connect(itemList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_itemDoubleClicked(QModelIndex)));
+}
+
+void Game::on_listWidget_itemDoubleClicked(QListWidgetItem *item){
+    cout << item->text().toStdString() << endl;
+}
+
+void Game::on_itemDoubleClicked(QModelIndex index){
+    model->removeRows(ui->listItems->currentIndex().row(),1);
+    cout << "wurde entfernt" << endl;
+    QStringList ficken;
+    ficken << "hurensohn";
+//    model->setStringList(ficken);
+}
+
+void Game::on_itemClicked(QModelIndex index){
+    cout << "did it work" << endl;
+    QVariant stringData = model->data(index, 0);  //displayRole 0 for QString text
+
+
+
+//    cout << stringData.toString().toStdString() << " was deleted " << endl;
 }
 
 Game::~Game()

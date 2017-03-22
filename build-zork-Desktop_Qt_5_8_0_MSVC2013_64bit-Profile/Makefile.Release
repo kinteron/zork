@@ -691,6 +691,8 @@ release\moc_game.cpp: ..\zork\zork\ZorkUL.h \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\qwizard.h" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\qtwidgetsversion.h" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QSignalMapper" \
+		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QStringListModel" \
+		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QModelIndex" \
 		..\zork\game.h \
 		release\moc_predefs.h \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\bin\moc.exe"
@@ -1244,6 +1246,8 @@ release\main.obj: ..\zork\main.cpp ../zork/game.h \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\qwizard.h" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\qtwidgetsversion.h" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QSignalMapper" \
+		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QStringListModel" \
+		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QModelIndex" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QApplication"
 
 release\game.obj: ..\zork\game.cpp ../zork/game.h \
@@ -1711,6 +1715,8 @@ release\game.obj: ..\zork\game.cpp ../zork/game.h \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\qwizard.h" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\qtwidgetsversion.h" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QSignalMapper" \
+		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QStringListModel" \
+		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtCore\QModelIndex" \
 		ui_game.h \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QAction" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QApplication" \
@@ -1720,6 +1726,7 @@ release\game.obj: ..\zork\game.cpp ../zork/game.h \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QHeaderView" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QLabel" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QListView" \
+		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QListWidget" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QMenu" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QMenuBar" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QPushButton" \
