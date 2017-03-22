@@ -20,7 +20,7 @@ Game::Game(QWidget *parent)
     QPushButton *equip = ui->btnEquip;
 
     QListView *itemList = ui->listItems;
-    QListView *foeStatus = ui->enemyStats;
+    QListWidget *foeStatus = ui->enemyStats;
     itemList->setUniformItemSizes(true); //every item has the same size
 
     //for the listview
@@ -54,9 +54,14 @@ Game::Game(QWidget *parent)
 
     itemList->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
     itemList->selectionModel()->connect(itemList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_itemDoubleClicked(QModelIndex)));
+
+    QListWidgetItem item = QListWidgetItem();
+    //enemyStats onClick
+
 }
 
 void Game::on_listWidget_itemDoubleClicked(QListWidgetItem *item){
+    item->setTextColor(Qt::red);
     cout << item->text().toStdString() << endl;
 }
 
