@@ -6,7 +6,7 @@
 
 
 ZorkUL::ZorkUL(QObject *parent)     //called by MainThread
-    : QObject(parent)/*, character("Alfred", 1)*/{  //like super() call
+    : QObject(parent), character("Alfred", 1){  //like super() call
 
     createRooms();
     generateItems();
