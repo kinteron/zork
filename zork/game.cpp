@@ -4,7 +4,7 @@
 
 
 Game::Game(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::Game)
+    : QMainWindow(parent), ui(new Ui::Game), zork(ZorkUL(parent))
 {
     ui->setupUi(this);
 
@@ -26,7 +26,7 @@ Game::Game(QWidget *parent)
     //for the listview
     model = new QStringListModel(this);    //this?
     QStringList list;
-    list << "hu" << "ren" << "sohn";
+    list << "that" << "sucks" << "bla";
     model->setStringList(list);
     //model can be applied to any view, in order to update all views
     itemList->setModel(model);
@@ -58,6 +58,8 @@ Game::Game(QWidget *parent)
     QListWidgetItem item = QListWidgetItem();
     //enemyStats onClick
 
+    zork.printWelcome();
+
 }
 
 void Game::on_listWidget_itemDoubleClicked(QListWidgetItem *item){
@@ -69,7 +71,7 @@ void Game::on_itemDoubleClicked(QModelIndex index){
     model->removeRows(ui->listItems->currentIndex().row(),1);
     cout << "wurde entfernt" << endl;
     QStringList ficken;
-    ficken << "hurensohn";
+    ficken << "errfas";
 //    model->setStringList(ficken);
 }
 

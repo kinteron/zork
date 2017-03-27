@@ -1,11 +1,11 @@
 #include "item.h"
 
 
-Item::Item (string inDescription, int inValue, float inWeightKG, string funfact){
+Item::Item(string inDescription, int inValue, float inWeightKG, string funfact){
 //    assert(inValue > 0);
-    description = inDescription;
     setWeight(inWeightKG);
     setValue(inValue);
+    penis = inDescription;
     this->funfact = funfact;
 }
 
@@ -31,25 +31,24 @@ void Item::setValue(int inValue)
 
 string Item::shortDescription()
 {
-    return description;
-}
-
-string Item::longDescription()
-{
-    string weight = to_string(weightKG);
-    string val = to_string(value);
-    return description + "\nvalue: " + val + "\nweight: " + weight + "\n" + funfact;
+    return penis;
 }
 
 int Item::getValue(){
     return value;
 }
 
+string Item::longDescription()
+{
+    string weight = to_string(weightKG);
+    string val = to_string(value);
+    return penis + "\nvalue: " + val + "\nweight: " + weight + "\n" + funfact;
+}
+
 Item& Item::operator=(Item& other){
-//    if(weapon1.getWeaponCheck())  //should be handled in assigning-method
-//        return;
-    value = other.getValue();
-    setWeight(other.getWeight());
+
+    value = other.value;
+    setWeight(other.weightKG);
 //    longDescription = strcpy(new char [strlen(other.longDescription) + 1], other.longDescription;
 //    description = strcpy(new char[strlen(other.description)+1], other.description);
 //    durability = other.durability;
@@ -57,7 +56,7 @@ Item& Item::operator=(Item& other){
 }
 
 bool Item::operator!=(Item& other){
-    return description.compare(other.description);
+    return penis.compare(other.penis) == 0;
 }
 
 //Item &operator+(const Item& other){

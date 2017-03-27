@@ -6,6 +6,7 @@
 
 class Command {
 private:
+    //char*
 	string commandWord;
 	string secondWord;
 

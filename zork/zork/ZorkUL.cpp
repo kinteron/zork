@@ -6,11 +6,10 @@
 
 
 ZorkUL::ZorkUL(QObject *parent)     //called by MainThread
-    : QObject(parent), character("Alfred", 1){  //like super() call
+    : QObject(parent), character(new Character("Alfred", 1, 0)){  //like super() call
 
     createRooms();
     generateItems();
-    cout << character.longDescription() << endl;
 }
 
 
@@ -19,17 +18,18 @@ ZorkUL::~ZorkUL(){
     cout << "zorkUl destructor is called" << endl;
 }
 
-bool ZorkUL::unique(string name, vector<Item> list, int index){
+bool ZorkUL::unique(string name, vector<Item*> list, int index){
     int size = index;
     for(int i = 0; i < size; ++i){
-        if(name.compare(list.at(i).shortDescription()) == 0){
+        if(name.compare(list.at(i)->shortDescription()) == 0){
             return false;
         }
     }
     return true;
 }
 
-inline int random(int start, int end){
+//saves stack pushes due to inline
+inline int random(int const start, int const end){  //const not allowed
     std::random_device r;
     std::default_random_engine engine(r());
     std::uniform_int_distribution<int> uniform_dist(start, end);
@@ -41,7 +41,7 @@ void ZorkUL::generateItems(){
     //create item list
     //add items to rooms
 
-    vector<Item> tempList;
+    vector<Item *> tempList;
 
     /*
      * because strings are char*
@@ -78,6 +78,7 @@ void ZorkUL::generateItems(){
     items[19] = new Item("master-key", -3, .0f, "just kidding!\nyou still need all three to get to enter the top floor");
     items[20] = new Item("small potion", 10, 0.6f, "regains 10 HP");
     items[21] = new Item("potion", 30, 0.8f, "regains 30 HP");
+    //if item added, change itemSize
 
     int size = 0;
 
@@ -85,7 +86,7 @@ void ZorkUL::generateItems(){
         int rand = random(0, 19);   //items 0-19
         if(unique(items[rand]->shortDescription(), tempList, size)){
             Item *item = items[rand];
-            tempList.push_back(*item);
+            tempList.push_back(item);
             size++;
             // add item to room
             m_rooms[random(0,8)]->addItem(item);     //rooms 0-8
@@ -147,6 +148,7 @@ void ZorkUL::createRooms()  {
 
 void ZorkUL::going(const QString btnName){  //call by value -> copy of variable
 
+
 //  assert(processCommand(Command(goPrompt, btnName.toStdString())));
     processCommand(Command(goPrompt, btnName.toStdString()));
 }
@@ -156,7 +158,9 @@ void ZorkUL::going(const QString btnName){  //call by value -> copy of variable
 //}
 
 void ZorkUL::takeItem(){
-    processCommand(Command(takePrompt, "terminator 9999"));
+
+    string takePrompt = "something";
+    processCommand(Command(ZorkUL::takePrompt, "terminator 9999")); //global used variable not local scope
     currentRoom->removeItemFromRoom();
 }
 
@@ -167,7 +171,6 @@ void ZorkUL::takeItem(){
 void ZorkUL::printWelcome() {
     cout << "start"<< endl;
     cout << "info for help"<< endl;
-    cout << endl;
     cout << currentRoom->longDescription() << endl;
 }
 
@@ -180,6 +183,8 @@ void ZorkUL::printWelcome() {
 bool ZorkUL::processCommand(Command &command) {
 
     string commandWord = command.getCommandWord();
+
+    cout << currentRoom->shortDescription() << endl;
 
     cout << currentRoom->shortDescription() << endl;
     if (commandWord.compare("info") == 0)
@@ -213,9 +218,9 @@ bool ZorkUL::processCommand(Command &command) {
             if(item == NULL){
                 cout << "item not found" << endl;
             } else{
-                character.addItem(*item);
+                character->addItem(*item); //change
                 cout << "item " + item->shortDescription() + " added to inventory" << endl;
-                cout << character.longDescription() << endl;    //check if he has a weapon
+                cout << character->longDescription() << endl;    //check if he has a weapon
             }
         }
     }
@@ -290,6 +295,7 @@ string ZorkUL::go(string direction) {
 }
 
 void ZorkUL::teleport(){
+    cout << character->longDescription() << endl;
     //room between 0 and 8
     Room* nextRoom = m_rooms.at(random(0,8));
     currentRoom = nextRoom;

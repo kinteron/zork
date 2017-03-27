@@ -13,7 +13,6 @@ public:
     int getDurability() const;
     void setDurability(int value);
 
-
 private:
     int durability;
 };

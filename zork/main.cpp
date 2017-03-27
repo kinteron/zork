@@ -1,5 +1,4 @@
 #include "game.h"
-#include "zork/ZorkUL.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

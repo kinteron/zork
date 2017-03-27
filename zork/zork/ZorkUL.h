@@ -19,10 +19,11 @@ using namespace std;
  * @brief The ZorkUL class
  * gains the 'ability' to work as a (thread)
  */
-
 class ZorkUL : public QObject{ //in order to provide slots
 
     Q_OBJECT    //macro which declares its own signals and slots
+
+    static const int itemArraySize = 22;
 
 private:
 
@@ -34,15 +35,15 @@ private:
 //    //game specific variables
     vector<Room*> m_rooms;    //collect rooms and iterate over list
 //    //static_cast<char*>(vp);
-    Item *items[20];
+    Item *items[itemArraySize];
 
-    Character character;
+    Character *character;   //pointing to a new reference
     Parser parser;
-    Room *currentRoom;
+    Room *currentRoom;  //points to a room
 
 
     void createRooms();
-    void printWelcome();
+
     bool processCommand(Command &command);
     void goRoom(const Command command);
     void printHelp();
@@ -50,10 +51,11 @@ private:
 
 public:
 
-    string ZorkUL::go(string direction);
+    void printWelcome();
+    string go(string direction = "north");
 
 
-    bool unique(string name, vector<Item> list, int index);    //check if it's just available once
+    bool unique(string name, vector<Item*> list, int index);    //check if it's just available once
 
 //    //generate
     void generateItems();

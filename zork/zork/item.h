@@ -17,13 +17,11 @@ class Item {
     friend Item &operator+(const Item& weapon1, const Item& weapon2);
 
 private:
-    string description; //stack no delete
+    string penis; //stack no delete
     string funfact;
 
     float weightKG;
     int value;    //used for healing items
-
-
 
 public:
 
@@ -37,8 +35,8 @@ public:
 
     float getWeight();
     void setWeight(float weightKG);
-    int getValue();
     void setValue(int value);
+    int getValue();
 
 
     //operator overloading
