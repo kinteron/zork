@@ -52,7 +52,6 @@ private:
 public:
 
     void printWelcome();
-    string go(string direction = "north");
 
 
     bool unique(string name, vector<Item*> list, int index);    //check if it's just available once

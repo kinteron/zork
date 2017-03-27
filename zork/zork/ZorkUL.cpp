@@ -261,36 +261,21 @@ void ZorkUL::printHelp() {
 }
 
 void ZorkUL::goRoom(Command command) {
+    if (!command.hasSecondWord()) {
+        cout << "undefined input"<< endl;
+        return;
+    }
 
     string direction = command.getSecondWord();
-    cout << direction;
 
     // Try to leave current room.
-    Room* next = currentRoom->nextRoom(direction);
-
-    if (next == NULL){
-        cout << "underdefined input"<< endl;
-        /* put graphical update in here
-         * disable buttons, update map
-         */
-    } else {
-        currentRoom = next;
-        cout << go(direction) << endl;
-    }
-}
-
-string ZorkUL::go(string direction) {
-    //Make the direction lowercase
-    transform(direction.begin(), direction.end(), direction.begin(), tolower);
-    //Move to the next room
-
     Room* nextRoom = currentRoom->nextRoom(direction);
+
     if (nextRoom == NULL)
-        return("direction null");
-    else
-    {
+        cout << "underdefined input"<< endl;
+    else {
         currentRoom = nextRoom;
-        return currentRoom->longDescription();
+        cout << currentRoom->longDescription() << endl;
     }
 }
 
@@ -299,5 +284,5 @@ void ZorkUL::teleport(){
     //room between 0 and 8
     Room* nextRoom = m_rooms.at(random(0,8));
     currentRoom = nextRoom;
-    cout << go(currentRoom->shortDescription()) << endl;
+    cout << currentRoom->longDescription() << endl;
 }
