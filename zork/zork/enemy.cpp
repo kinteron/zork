@@ -1,30 +1,30 @@
 #include "enemy.h"
 #include "includes.h"
 
-Enemy::Enemy(string description, float health, int attack)
+Enemy::Enemy(string description, int health, float attack)
 {
     this->description = description;
     this->health = health;
     this->attack = attack;
-    cout << description.c_str() << endl;
+    cout << description.c_str() << " appeared" << endl;
 }
 
-float Enemy::getHealth() const
+int Enemy::getHealth() const
 {
     return health;
 }
 
-void Enemy::setHealth(float value)
+void Enemy::setHealth(int value)
 {
     health = value;
 }
 
-int Enemy::getAttack() const
+float Enemy::getAttack() const
 {
     return attack;
 }
 
-void Enemy::setAttack(int value)
+void Enemy::setAttack(float value)
 {
     attack = value;
 }

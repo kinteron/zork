@@ -9,12 +9,12 @@ class Enemy
     float attack;
 
 public:
-    Enemy(string description = "foe", float health = 1, int attack = 999);
+    Enemy(string description = "foe", int health = 1, float attack = 999);
     string shortDescription() const;
-    float getHealth() const;
-    void setHealth(float value);
-    int getAttack() const;
-    void setAttack(int value);
+    int getHealth() const;
+    void setHealth(int value);
+    float getAttack() const;
+    void setAttack(float value);
 };
 
 #endif // ENEMY_H

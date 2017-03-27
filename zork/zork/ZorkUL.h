@@ -48,26 +48,27 @@ private:
     void goRoom(const Command command);
     void printHelp();
     void spawnEnemy();
-
-public:
-
+    void nextRoom(Room*);
     void printWelcome();
 
 
-    bool unique(string name, vector<Item*> list, int index);    //check if it's just available once
+public:
 
-//    //generate
+    bool unique(string name, vector<Item*> list, int index);    //check if it's just available once
+    bool fillList(QStringList &list);
+    QString getItemDescription(string name);
+
+    //generate
     void generateItems();
 
 private slots:
     void going(const QString btnName);
     void teleport(void);
-//    void attack(void);
-//    void equip(const QString);
-    void takeItem();
 
-//    void createItems(void);
-//    void displayItems(void);
+public slots:
+    bool takeItem(QString itemName);
+signals:
+    void updateListView(void);
 
 
 public:

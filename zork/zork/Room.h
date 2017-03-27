@@ -15,6 +15,8 @@ using std::vector;
 
 class Room {
 
+    friend Item* mapNameToItem(string itemName);
+
 private:
     string name;
     map<string, Room*> exits;   //each string points to a different room
@@ -34,8 +36,9 @@ public:
     void addItem(Item *inItem);
     string displayItem();
     Item *isItemInRoom(string inString);
-    void removeItemFromRoom();
+    bool removeItemFromRoom(string itemName);
     void addEnemy();
+    vector<Item> getItemsInRoom() const;
 
 };
 

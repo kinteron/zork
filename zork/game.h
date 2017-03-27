@@ -23,9 +23,10 @@ public:
     ~Game();
 
 private slots:
-    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+//    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
     void on_itemClicked(QModelIndex index);
     void on_itemDoubleClicked(QModelIndex index);
+    void update();
 
 private:
     Ui::Game *ui;

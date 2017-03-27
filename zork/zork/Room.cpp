@@ -17,7 +17,8 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 }
 
 void Room::addEnemy(){
-    Enemy e("fleaman", 20.f, 8);
+    //current used enemy
+    Enemy e("fleaman", 20, 8.f);
     this->enemy = &e;
 }
 
@@ -54,12 +55,12 @@ string Room::displayItem() {
     string tempString = "items in room = ";
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1) {
-        tempString = "no items in room";
+        tempString = "no items in room "  + this->shortDescription();
         }
     else if (itemsInRoom.size() > 0) {
        int x = (0);
         for (int n = sizeItems; n > 0; n--) {
-            tempString = tempString + itemsInRoom[x].shortDescription() + "  " ;
+            tempString = tempString + itemsInRoom[x].shortDescription() + ";  " ;
             x++;
             }
         }
@@ -70,8 +71,20 @@ int Room::numberOfItems() {
     return itemsInRoom.size();
 }
 
-void Room::removeItemFromRoom(){
-    itemsInRoom.clear();
+bool Room::removeItemFromRoom(string itemName){
+    for (vector<Item>::iterator i = itemsInRoom.begin(); i != itemsInRoom.end(); ++i){
+        Item item = ((Item )*i);    //iterator points to object
+        if(item.shortDescription().compare(itemName) == 0){
+            itemsInRoom.erase(i);
+            cout << item.shortDescription() << " removed" << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+vector<Item> Room::getItemsInRoom() const{
+    return this->itemsInRoom;
 }
 
 Item* Room::isItemInRoom(string inString)

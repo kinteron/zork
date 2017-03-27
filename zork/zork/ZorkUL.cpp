@@ -137,8 +137,8 @@ void ZorkUL::createRooms()  {
     i->setExits(NULL, d, NULL, NULL);
     boss->setExits(NULL,NULL,NULL,NULL);
 
-    currentRoom = a;
-
+    printWelcome();
+    nextRoom(a);
 }
 
 ///**
@@ -157,21 +157,13 @@ void ZorkUL::going(const QString btnName){  //call by value -> copy of variable
 //    processCommand(Command(equipPrompt, itemName.toStdString()));
 //}
 
-void ZorkUL::takeItem(){
-
-    string takePrompt = "something";
-    processCommand(Command(ZorkUL::takePrompt, "terminator 9999")); //global used variable not local scope
-    currentRoom->removeItemFromRoom();
+bool ZorkUL::takeItem(QString itemName){
+    return processCommand(Command(takePrompt, itemName.toStdString())); //global used variable not local scope
 }
-
-//void ZorkUL::attack(){
-//    processCommand(Command(attackPrompt));
-//}
 
 void ZorkUL::printWelcome() {
     cout << "start"<< endl;
     cout << "info for help"<< endl;
-    cout << currentRoom->longDescription() << endl;
 }
 
 ///**
@@ -184,9 +176,6 @@ bool ZorkUL::processCommand(Command &command) {
 
     string commandWord = command.getCommandWord();
 
-    cout << currentRoom->shortDescription() << endl;
-
-    cout << currentRoom->shortDescription() << endl;
     if (commandWord.compare("info") == 0)
         printHelp();
 
@@ -210,17 +199,18 @@ bool ZorkUL::processCommand(Command &command) {
     else if (commandWord.compare("take") == 0)
     {
         if (!command.hasSecondWord()) {
-        cout << "incomplete input"<< endl;
-        }
-        else
-         if (command.hasSecondWord()) {
+            cout << "incomplete input"<< endl;
+        } else if (command.hasSecondWord()) {
             Item* item = currentRoom->isItemInRoom(command.getSecondWord());
             if(item == NULL){
                 cout << "item not found" << endl;
-            } else{
+            } else {
                 character->addItem(*item); //change
-                cout << "item " + item->shortDescription() + " added to inventory" << endl;
                 cout << character->longDescription() << endl;    //check if he has a weapon
+                cout << "item " + item->shortDescription() + " added to inventory" << endl;
+                if(currentRoom->removeItemFromRoom(command.getSecondWord())){
+
+                }
             }
         }
     }
@@ -248,6 +238,29 @@ bool ZorkUL::processCommand(Command &command) {
     return false;
 }
 
+QString ZorkUL::getItemDescription(string itemName){
+    QString temp = QString("");
+    for(int i = 0; i < currentRoom->getItemsInRoom().size(); ++i){
+        if(itemName.compare(currentRoom->getItemsInRoom().at(i).shortDescription()) == 0)
+            temp = QString(currentRoom->getItemsInRoom()[i].longDescription().c_str());
+    }
+    return temp;
+}
+
+bool ZorkUL::fillList(QStringList &list){
+
+    if(currentRoom->getItemsInRoom().size() > 0){
+        for(int i = 0; i < currentRoom->getItemsInRoom().size(); ++i){
+            Item item = currentRoom->getItemsInRoom().at(i);
+            list << item.shortDescription().c_str();
+        }
+        return false;
+    } else{
+        list << "no items\nin this room";
+        return true;
+    }
+}
+
 void ZorkUL::spawnEnemy(){
     //normal enemy
     currentRoom->addEnemy();
@@ -269,20 +282,23 @@ void ZorkUL::goRoom(Command command) {
     string direction = command.getSecondWord();
 
     // Try to leave current room.
-    Room* nextRoom = currentRoom->nextRoom(direction);
+    Room* next = currentRoom->nextRoom(direction);
+    nextRoom(next);
+}
 
+void ZorkUL::nextRoom(Room* nextRoom){
     if (nextRoom == NULL)
-        cout << "underdefined input"<< endl;
+        cout << "no exit here"<< endl;
     else {
         currentRoom = nextRoom;
         cout << currentRoom->longDescription() << endl;
+        //trigger
+        updateListView();
     }
 }
 
 void ZorkUL::teleport(){
-    cout << character->longDescription() << endl;
     //room between 0 and 8
-    Room* nextRoom = m_rooms.at(random(0,8));
-    currentRoom = nextRoom;
-    cout << currentRoom->longDescription() << endl;
+    Room* next = m_rooms.at(random(0,8));
+    nextRoom(next);
 }

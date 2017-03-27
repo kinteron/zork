@@ -32,7 +32,7 @@ string Character::longDescription()
   cout << name;
   string ret = "\nlevel: " + to_string(lvl) + "\nhealth: " + to_string((int)health) +"\nattack: " + to_string(attack) + "\ninventory: ";
   for (vector<Item>::iterator i = inventory.begin(); i != inventory.end(); i++)
-    ret += (*i).longDescription() + "\t";
+    ret += (*i).shortDescription() + "\t";
   ret += "\n";
   return ret;
 }

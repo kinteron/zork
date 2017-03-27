@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Game_t {
-    QByteArrayData data[8];
-    char stringdata0[102];
+    QByteArrayData data[6];
+    char stringdata0[55];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,18 +32,15 @@ struct qt_meta_stringdata_Game_t {
 static const qt_meta_stringdata_Game_t qt_meta_stringdata_Game = {
     {
 QT_MOC_LITERAL(0, 0, 4), // "Game"
-QT_MOC_LITERAL(1, 5, 31), // "on_listWidget_itemDoubleClicked"
-QT_MOC_LITERAL(2, 37, 0), // ""
-QT_MOC_LITERAL(3, 38, 16), // "QListWidgetItem*"
-QT_MOC_LITERAL(4, 55, 4), // "item"
-QT_MOC_LITERAL(5, 60, 14), // "on_itemClicked"
-QT_MOC_LITERAL(6, 75, 5), // "index"
-QT_MOC_LITERAL(7, 81, 20) // "on_itemDoubleClicked"
+QT_MOC_LITERAL(1, 5, 14), // "on_itemClicked"
+QT_MOC_LITERAL(2, 20, 0), // ""
+QT_MOC_LITERAL(3, 21, 5), // "index"
+QT_MOC_LITERAL(4, 27, 20), // "on_itemDoubleClicked"
+QT_MOC_LITERAL(5, 48, 6) // "update"
 
     },
-    "Game\0on_listWidget_itemDoubleClicked\0"
-    "\0QListWidgetItem*\0item\0on_itemClicked\0"
-    "index\0on_itemDoubleClicked"
+    "Game\0on_itemClicked\0\0index\0"
+    "on_itemDoubleClicked\0update"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,13 +59,13 @@ static const uint qt_meta_data_Game[] = {
 
  // slots: name, argc, parameters, tag, flags
        1,    1,   29,    2, 0x08 /* Private */,
-       5,    1,   32,    2, 0x08 /* Private */,
-       7,    1,   35,    2, 0x08 /* Private */,
+       4,    1,   32,    2, 0x08 /* Private */,
+       5,    0,   35,    2, 0x08 /* Private */,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 3,    4,
-    QMetaType::Void, QMetaType::QModelIndex,    6,
-    QMetaType::Void, QMetaType::QModelIndex,    6,
+    QMetaType::Void, QMetaType::QModelIndex,    3,
+    QMetaType::Void, QMetaType::QModelIndex,    3,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -79,9 +76,9 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         Game *_t = static_cast<Game *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_listWidget_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 1: _t->on_itemClicked((*reinterpret_cast< QModelIndex(*)>(_a[1]))); break;
-        case 2: _t->on_itemDoubleClicked((*reinterpret_cast< QModelIndex(*)>(_a[1]))); break;
+        case 0: _t->on_itemClicked((*reinterpret_cast< QModelIndex(*)>(_a[1]))); break;
+        case 1: _t->on_itemDoubleClicked((*reinterpret_cast< QModelIndex(*)>(_a[1]))); break;
+        case 2: _t->update(); break;
         default: ;
         }
     }

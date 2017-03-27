@@ -16,7 +16,6 @@ Game::Game(QWidget *parent)
     QPushButton *west = ui->btnSouth;
     QPushButton *teleport = ui->btnTeleport;
     QPushButton *weapon = ui->btnWeapon;
-    QPushButton *pick = ui->btnPick;
     QPushButton *equip = ui->btnEquip;
 
     QListView *itemList = ui->listItems;
@@ -25,13 +24,10 @@ Game::Game(QWidget *parent)
 
     //for the listview
     model = new QStringListModel(this);    //this?
-    QStringList list;
-    list << "that" << "sucks" << "bla";
-    model->setStringList(list);
+
     //model can be applied to any view, in order to update all views
     itemList->setModel(model);
     QModelIndex currentIndex = itemList->selectionModel()->currentIndex();
-
 
     //in order to use different signals such as different buttons and send them to the same slot
     mapper = new QSignalMapper();        //heap
@@ -41,47 +37,51 @@ Game::Game(QWidget *parent)
     mapper->setMapping(west, QString(west->text()));
     mapper->setMapping(south, QString(south->text()));
 
+
     //sender, signal, receiver, slot
     connect(north, SIGNAL(released()), mapper, SLOT(map()));
     connect(east, SIGNAL(released()), mapper, SLOT(map()));
     connect(west, SIGNAL(released()), mapper, SLOT(map()));
     connect(south, SIGNAL(released()), mapper, SLOT(map()));
 
+
     //connect signal to evaluateClick() from zork
     connect(mapper, SIGNAL(mapped(QString)), &zork, SLOT(going(QString)));
     connect(teleport, SIGNAL(released()), &zork, SLOT(teleport()));
-    connect(pick, SIGNAL(released()), &zork, SLOT(takeItem()));
+
 
     itemList->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
     itemList->selectionModel()->connect(itemList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_itemDoubleClicked(QModelIndex)));
+    foeStatus->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
+
+    connect(&zork, SIGNAL(updateListView()), this, SLOT(update()));
 
     QListWidgetItem item = QListWidgetItem();
     //enemyStats onClick
-
-    zork.printWelcome();
-
 }
 
-void Game::on_listWidget_itemDoubleClicked(QListWidgetItem *item){
-    item->setTextColor(Qt::red);
-    cout << item->text().toStdString() << endl;
+void Game::update(){
+    QStringList list;
+    bool flag = 0;
+    ui->listItems->selectionModel()->blockSignals(zork.fillList(list));
+    model->setStringList(list);
 }
+
+//void Game::on_listWidget_itemDoubleClicked(QListWidgetItem *item){
+//    item->setTextColor(Qt::red);
+//    cout << item->text().toStdString() << endl;
+//}
 
 void Game::on_itemDoubleClicked(QModelIndex index){
+
+    zork.takeItem(model->data(index, 0).toString());//0 for string
     model->removeRows(ui->listItems->currentIndex().row(),1);
-    cout << "wurde entfernt" << endl;
-    QStringList ficken;
-    ficken << "errfas";
-//    model->setStringList(ficken);
 }
 
 void Game::on_itemClicked(QModelIndex index){
-    cout << "did it work" << endl;
     QVariant stringData = model->data(index, 0);  //displayRole 0 for QString text
-
-
-
-//    cout << stringData.toString().toStdString() << " was deleted " << endl;
+    ui->enemyStats->clear();
+    ui->enemyStats->addItem(zork.getItemDescription(stringData.toString().toStdString()));
 }
 
 Game::~Game()

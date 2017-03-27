@@ -45,7 +45,6 @@ public:
     QPushButton *btnWeapon;
     QLabel *lblDur;
     QLabel *lblAttack;
-    QPushButton *btnPick;
     QPushButton *btnEquip;
     QListView *listItems;
     QLabel *lblEnemy;
@@ -114,9 +113,6 @@ public:
         lblAttack = new QLabel(centralWidget);
         lblAttack->setObjectName(QStringLiteral("lblAttack"));
         lblAttack->setGeometry(QRect(330, 200, 71, 21));
-        btnPick = new QPushButton(centralWidget);
-        btnPick->setObjectName(QStringLiteral("btnPick"));
-        btnPick->setGeometry(QRect(250, 140, 81, 31));
         btnEquip = new QPushButton(centralWidget);
         btnEquip->setObjectName(QStringLiteral("btnEquip"));
         btnEquip->setGeometry(QRect(250, 240, 81, 31));
@@ -167,10 +163,9 @@ public:
         btnWeapon->setText(QApplication::translate("Game", "use weapon", Q_NULLPTR));
         lblDur->setText(QApplication::translate("Game", "durability ", Q_NULLPTR));
         lblAttack->setText(QApplication::translate("Game", "attack", Q_NULLPTR));
-        btnPick->setText(QApplication::translate("Game", "pick item", Q_NULLPTR));
         btnEquip->setText(QApplication::translate("Game", "equip", Q_NULLPTR));
-        lblEnemy->setText(QApplication::translate("Game", "enemy", Q_NULLPTR));
-        lblRoom->setText(QApplication::translate("Game", "room", Q_NULLPTR));
+        lblEnemy->setText(QApplication::translate("Game", "Enemy", Q_NULLPTR));
+        lblRoom->setText(QApplication::translate("Game", "Room", Q_NULLPTR));
         menuZork->setTitle(QApplication::translate("Game", "Zork", Q_NULLPTR));
     } // retranslateUi
 
