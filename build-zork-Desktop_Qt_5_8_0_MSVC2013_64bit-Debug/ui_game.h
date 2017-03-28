@@ -121,10 +121,10 @@ public:
         listItems->setGeometry(QRect(160, 180, 171, 91));
         lblEnemy = new QLabel(centralWidget);
         lblEnemy->setObjectName(QStringLiteral("lblEnemy"));
-        lblEnemy->setGeometry(QRect(10, 270, 55, 16));
+        lblEnemy->setGeometry(QRect(10, 270, 151, 16));
         lblRoom = new QLabel(centralWidget);
         lblRoom->setObjectName(QStringLiteral("lblRoom"));
-        lblRoom->setGeometry(QRect(120, 270, 55, 16));
+        lblRoom->setGeometry(QRect(160, 270, 171, 16));
         editWeapon = new QTextEdit(centralWidget);
         editWeapon->setObjectName(QStringLiteral("editWeapon"));
         editWeapon->setGeometry(QRect(330, 180, 91, 31));

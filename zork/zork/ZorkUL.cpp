@@ -18,6 +18,10 @@ ZorkUL::~ZorkUL(){
     cout << "zorkUl destructor is called" << endl;
 }
 
+bool ZorkUL::isEnemyPresent() const{
+    return currentRoom->getEnemy() != 0;
+}
+
 bool ZorkUL::unique(string name, vector<Item*> list, int index){
     int size = index;
     for(int i = 0; i < size; ++i){
@@ -28,17 +32,15 @@ bool ZorkUL::unique(string name, vector<Item*> list, int index){
     return true;
 }
 
-bool ZorkUL::isEnemyPresent() const{
-    return true;
-}
-
 QString ZorkUL::getCurrentRoomText() const{
     string s = "Room " + currentRoom->shortDescription();
     return QString(s.c_str());
 }
 
+
 QString ZorkUL::getEnemyName() const{
-    return QString(currentRoom->getEnemy()->shortDescription().c_str());
+    string s = "Enemy " + currentRoom->getEnemy()->shortDescription();
+    return QString(s.c_str());
 //    return QString(currentRoom->getEnemy()->longDescription().c_str());
 }
 
@@ -238,7 +240,7 @@ bool ZorkUL::processCommand(Command command) {
     }
 
     else if(commandWord.compare("attack") == 0){
-        cout << "are you sure?" << endl;
+
     }
 
     else if (commandWord.compare("equip") == 0)
@@ -300,13 +302,14 @@ void ZorkUL::goRoom(Command command) {
         cout << "undefined input"<< endl;
         return;
     }
-
     string direction = command.getSecondWord();
 
     // Try to leave current room.
     Room* next = currentRoom->nextRoom(direction);
     nextRoom(next);
 }
+
+
 
 void ZorkUL::nextRoom(Room* nextRoom){
     if (nextRoom == NULL)

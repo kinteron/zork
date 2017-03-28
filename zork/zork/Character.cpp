@@ -51,7 +51,6 @@ float Character::getHealth() const{
 
 void Character::increaseHealth(float value){
     health = value / .25f;
-
 }
 
 vector<Item> Character::getInventory() const{

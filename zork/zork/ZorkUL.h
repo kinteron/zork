@@ -50,7 +50,7 @@ private:
     void spawnEnemy();
     void nextRoom(Room*);
     void printWelcome();
-    bool isEnemyPresent() const;
+
 
 
 public:
@@ -62,18 +62,22 @@ public:
     QString getEnemyDescription() const;
     QString getEnemyName() const;
 
+    bool isEnemyPresent() const;
+
     //generate
     void generateItems();
+
 
 private slots:
     void going(const QString btnName);
     void teleport(void);
 
+
 public slots:
     bool takeItem(QString itemName);
+
 signals:
     void updateListView(void);
-
 
 public:
     ZorkUL(QObject *parent = 0);    //Threads are operating with QObjects, by default the parent is currently this class (has no parents)

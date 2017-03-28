@@ -36,7 +36,7 @@ Game::Game(QWidget *parent)
     mapper->setMapping(east, QString(east->text()));
     mapper->setMapping(west, QString(west->text()));
     mapper->setMapping(south, QString(south->text()));
-
+//    mapper->setMapping(&zork, zork.isEnemyPresent());   //parameter
 
     //sender, signal, receiver, slot
     connect(north, SIGNAL(released()), mapper, SLOT(map()));
@@ -44,10 +44,10 @@ Game::Game(QWidget *parent)
     connect(west, SIGNAL(released()), mapper, SLOT(map()));
     connect(south, SIGNAL(released()), mapper, SLOT(map()));
 
-
     //connect signal to evaluateClick() from zork
     connect(mapper, SIGNAL(mapped(QString)), &zork, SLOT(going(QString)));
     connect(teleport, SIGNAL(released()), &zork, SLOT(teleport()));
+//    connect(mapper, SIGNAL(mapped(int)), this, SLOT(updateRoom(int)));
 
     itemList->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
     itemList->selectionModel()->connect(itemList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_itemDoubleClicked(QModelIndex)));
@@ -58,24 +58,18 @@ Game::Game(QWidget *parent)
     //enemyStats onClick
 }
 
-
 void Game::update(){
-
-    QStringList list;
-    ui->listItems->selectionModel()->blockSignals(zork.fillList(list)); //call by reference
-    model->setStringList(list);
-    ui->lblRoom->setText(zork.getCurrentRoomText());
-    ui->lblEnemy->setText(zork.getEnemyName());  //value of pointer
     ui->enemyStats->clear();
-    ui->enemyStats->addItem(zork.getEnemyDescription());
-
-
+    if(zork.isEnemyPresent()){
+        ui->lblEnemy->setText(zork.getEnemyName());  //value of pointer
+        ui->enemyStats->addItem(zork.getEnemyDescription());
+    } else{
+        QStringList list;
+        ui->listItems->selectionModel()->blockSignals(zork.fillList(list)); //call by reference
+        model->setStringList(list);
+    }
+    ui->lblRoom->setText(zork.getCurrentRoomText());
 }
-
-//void Game::on_listWidget_itemDoubleClicked(QListWidgetItem *item){
-//    item->setTextColor(Qt::red);
-//    cout << item->text().toStdString() << endl;
-//}
 
 void Game::on_itemDoubleClicked(QModelIndex index){
 
