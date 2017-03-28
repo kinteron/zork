@@ -60,7 +60,7 @@ public:
     {
         if (Game->objectName().isEmpty())
             Game->setObjectName(QStringLiteral("Game"));
-        Game->resize(455, 355);
+        Game->resize(476, 350);
         centralWidget = new QWidget(Game);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         mapView = new QGraphicsView(centralWidget);
@@ -68,7 +68,7 @@ public:
         mapView->setGeometry(QRect(10, 0, 241, 181));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(250, 0, 209, 135));
+        gridLayoutWidget->setGeometry(QRect(260, 0, 209, 135));
         gridButtons = new QGridLayout(gridLayoutWidget);
         gridButtons->setSpacing(6);
         gridButtons->setContentsMargins(11, 11, 11, 11);
@@ -106,19 +106,19 @@ public:
 
         btnWeapon = new QPushButton(centralWidget);
         btnWeapon->setObjectName(QStringLiteral("btnWeapon"));
-        btnWeapon->setGeometry(QRect(250, 170, 81, 71));
+        btnWeapon->setGeometry(QRect(250, 130, 81, 51));
         lblDur = new QLabel(centralWidget);
         lblDur->setObjectName(QStringLiteral("lblDur"));
-        lblDur->setGeometry(QRect(330, 220, 71, 21));
+        lblDur->setGeometry(QRect(340, 160, 71, 21));
         lblAttack = new QLabel(centralWidget);
         lblAttack->setObjectName(QStringLiteral("lblAttack"));
-        lblAttack->setGeometry(QRect(330, 200, 71, 21));
+        lblAttack->setGeometry(QRect(340, 140, 71, 21));
         btnEquip = new QPushButton(centralWidget);
         btnEquip->setObjectName(QStringLiteral("btnEquip"));
-        btnEquip->setGeometry(QRect(250, 240, 81, 31));
+        btnEquip->setGeometry(QRect(420, 180, 51, 31));
         listItems = new QListView(centralWidget);
         listItems->setObjectName(QStringLiteral("listItems"));
-        listItems->setGeometry(QRect(120, 180, 131, 91));
+        listItems->setGeometry(QRect(160, 180, 171, 91));
         lblEnemy = new QLabel(centralWidget);
         lblEnemy->setObjectName(QStringLiteral("lblEnemy"));
         lblEnemy->setGeometry(QRect(10, 270, 55, 16));
@@ -127,14 +127,14 @@ public:
         lblRoom->setGeometry(QRect(120, 270, 55, 16));
         editWeapon = new QTextEdit(centralWidget);
         editWeapon->setObjectName(QStringLiteral("editWeapon"));
-        editWeapon->setGeometry(QRect(330, 240, 81, 31));
+        editWeapon->setGeometry(QRect(330, 180, 91, 31));
         enemyStats = new QListWidget(centralWidget);
         enemyStats->setObjectName(QStringLiteral("enemyStats"));
-        enemyStats->setGeometry(QRect(10, 180, 111, 91));
+        enemyStats->setGeometry(QRect(10, 180, 151, 91));
         Game->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Game);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 455, 26));
+        menuBar->setGeometry(QRect(0, 0, 476, 26));
         menuZork = new QMenu(menuBar);
         menuZork->setObjectName(QStringLiteral("menuZork"));
         Game->setMenuBar(menuBar);

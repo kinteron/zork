@@ -17,7 +17,7 @@ class Item {
     friend Item &operator+(const Item& weapon1, const Item& weapon2);
 
 private:
-    string penis; //stack no delete
+    string description; //stack no delete
     string funfact;
 
     float weightKG;
@@ -32,6 +32,7 @@ public:
 
     string shortDescription();
     string longDescription();
+    string getFunfact() const;
 
     float getWeight();
     void setWeight(float weightKG);
@@ -40,7 +41,7 @@ public:
 
 
     //operator overloading
-    Item &operator=(Item& other);
+    Item operator=(Item other);
     bool operator!=(Item& two);
 
 };

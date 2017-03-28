@@ -3,6 +3,7 @@
 Room::Room(string description){
     //calls Item
     this->name = description;
+
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -14,12 +15,14 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 		exits["south"] = south;
 	if (west != NULL)
 		exits["west"] = west;
+
+    addEnemy();
 }
 
 void Room::addEnemy(){
     //current used enemy
-    Enemy e("fleaman", 20, 8.f);
-    this->enemy = &e;   //will loose enemy reference after method }
+    enemy = new Enemy("fleaman", 20, 8.f);
+//    this->enemy = &e;   //will loose enemy reference after method }
 }
 
 Enemy *Room::getEnemy() const{

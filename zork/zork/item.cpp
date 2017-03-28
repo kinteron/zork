@@ -5,7 +5,7 @@ Item::Item(string inDescription, int inValue, float inWeightKG, string funfact){
 //    assert(inValue > 0);
     setWeight(inWeightKG);
     setValue(inValue);
-    penis = inDescription;
+    description = inDescription;
     this->funfact = funfact;
 }
 
@@ -31,7 +31,7 @@ void Item::setValue(int inValue)
 
 string Item::shortDescription()
 {
-    return penis;
+    return description;
 }
 
 int Item::getValue(){
@@ -42,10 +42,10 @@ string Item::longDescription()
 {
     string weight = to_string(weightKG);
     string val = to_string(value);
-    return penis + "\nvalue: " + val + "\nweight: " + weight + "\n" + funfact;
+    return "value: " + val + "\nweight: " + weight + "\n" + getFunfact();
 }
 
-Item& Item::operator=(Item& other){
+Item Item::operator=(Item other){
 
     value = other.value;
     setWeight(other.weightKG);
@@ -55,8 +55,12 @@ Item& Item::operator=(Item& other){
     return *this;
 }
 
+string Item::getFunfact() const{
+    return this->funfact;
+}
+
 bool Item::operator!=(Item& other){
-    return penis.compare(other.penis) == 0;
+    return description.compare(other.description) == 0;
 }
 
 //Item &operator+(const Item& other){

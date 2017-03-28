@@ -60,17 +60,14 @@ Game::Game(QWidget *parent)
 
 
 void Game::update(){
-//    QString s = zork.getEnemyDescription();
-//    if(zork.isEnemyPresent()){
-//        s = *zork.getEnemyDescription();
-//    } else{
-    QString s = QString("");
-        QStringList list;
-        ui->listItems->selectionModel()->blockSignals(zork.fillList(list)); //call by reference
-        model->setStringList(list);
-//    }
+
+    QStringList list;
+    ui->listItems->selectionModel()->blockSignals(zork.fillList(list)); //call by reference
+    model->setStringList(list);
     ui->lblRoom->setText(zork.getCurrentRoomText());
-    ui->lblEnemy->setText(s);  //value of pointer
+    ui->lblEnemy->setText(zork.getEnemyName());  //value of pointer
+    ui->enemyStats->clear();
+    ui->enemyStats->addItem(zork.getEnemyDescription());
 
 
 }

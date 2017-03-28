@@ -39,5 +39,5 @@ string Enemy::shortDescription() const
 }
 
 string Enemy::longDescription() const{
-    return shortDescription() + "\nHP " + to_string(getHealth()) + "\nATK " + to_string(getAttack());
+    return "HP " + to_string(getHealth()) + "\nATK " + to_string(getAttack());
 }

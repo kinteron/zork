@@ -37,8 +37,12 @@ QString ZorkUL::getCurrentRoomText() const{
     return QString(s.c_str());
 }
 
+QString ZorkUL::getEnemyName() const{
+    return QString(currentRoom->getEnemy()->shortDescription().c_str());
+//    return QString(currentRoom->getEnemy()->longDescription().c_str());
+}
+
 QString ZorkUL::getEnemyDescription() const{
-    if(isEnemyPresent())
     return QString(currentRoom->getEnemy()->longDescription().c_str());
 }
 
@@ -83,7 +87,7 @@ void ZorkUL::generateItems(){
     items[9] = new Item("toiletpaper", 1, 0.01f, "seriously?");
     items[10] = new Item("lighter", 2, .01f);
     items[11] = new Item("dead mouse", 1, 1.f, "I could maybe... no!");
-    items[12] = new Item("useless dil**, WTF...");
+    items[12] = new Item("useless dil**", 10, 0.8, "WTF... in pink");
     items[13] = new Item("sketches", 0, 0.3f, "they look really nice...\nooh, look at this!");
 
     //keys
@@ -96,8 +100,8 @@ void ZorkUL::generateItems(){
 
     int size = 0;
 
-    for(int i = 0; i < 20; ++i){
-        int rand = random(0, 19);   //items 0-19
+    for(int i = 0; i < random(0, itemArraySize-6); ++i){
+        int rand = random(0, itemArraySize-6);   //items 0-16
         if(unique(items[rand]->shortDescription(), tempList, size)){
             Item *item = items[rand];
             tempList.push_back(item);
@@ -105,6 +109,10 @@ void ZorkUL::generateItems(){
             // add item to room
             m_rooms[random(0,8)]->addItem(item);     //rooms 0-8
         }
+    }
+
+    for(int i = itemArraySize-6; i < itemArraySize; ++i){
+        m_rooms[random(0,8)]->addItem(items[i]);
     }
 }
 

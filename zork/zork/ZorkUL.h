@@ -60,6 +60,7 @@ public:
     QString getItemDescription(string name) const;
     QString getCurrentRoomText() const;
     QString getEnemyDescription() const;
+    QString getEnemyName() const;
 
     //generate
     void generateItems();
