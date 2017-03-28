@@ -19,7 +19,11 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 void Room::addEnemy(){
     //current used enemy
     Enemy e("fleaman", 20, 8.f);
-    this->enemy = &e;
+    this->enemy = &e;   //will loose enemy reference after method }
+}
+
+Enemy *Room::getEnemy() const{
+    return this->enemy;
 }
 
 string Room::shortDescription() {

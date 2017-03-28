@@ -37,11 +37,11 @@ public:
     QGraphicsView *mapView;
     QWidget *gridLayoutWidget;
     QGridLayout *gridButtons;
-    QPushButton *btnEast;
-    QPushButton *btnSouth;
     QPushButton *btnWest;
-    QPushButton *btnNorth;
+    QPushButton *btnSouth;
     QPushButton *btnTeleport;
+    QPushButton *btnNorth;
+    QPushButton *btnEast;
     QPushButton *btnWeapon;
     QLabel *lblDur;
     QLabel *lblAttack;
@@ -74,11 +74,11 @@ public:
         gridButtons->setContentsMargins(11, 11, 11, 11);
         gridButtons->setObjectName(QStringLiteral("gridButtons"));
         gridButtons->setContentsMargins(0, 0, 0, 0);
-        btnEast = new QPushButton(gridLayoutWidget);
-        btnEast->setObjectName(QStringLiteral("btnEast"));
-        btnEast->setMaximumSize(QSize(50, 30));
+        btnWest = new QPushButton(gridLayoutWidget);
+        btnWest->setObjectName(QStringLiteral("btnWest"));
+        btnWest->setMaximumSize(QSize(50, 30));
 
-        gridButtons->addWidget(btnEast, 1, 0, 1, 1);
+        gridButtons->addWidget(btnWest, 1, 0, 1, 1);
 
         btnSouth = new QPushButton(gridLayoutWidget);
         btnSouth->setObjectName(QStringLiteral("btnSouth"));
@@ -86,11 +86,11 @@ public:
 
         gridButtons->addWidget(btnSouth, 2, 1, 1, 1);
 
-        btnWest = new QPushButton(gridLayoutWidget);
-        btnWest->setObjectName(QStringLiteral("btnWest"));
-        btnWest->setMaximumSize(QSize(50, 30));
+        btnTeleport = new QPushButton(gridLayoutWidget);
+        btnTeleport->setObjectName(QStringLiteral("btnTeleport"));
+        btnTeleport->setMaximumSize(QSize(50, 30));
 
-        gridButtons->addWidget(btnWest, 1, 2, 1, 1);
+        gridButtons->addWidget(btnTeleport, 1, 1, 1, 1);
 
         btnNorth = new QPushButton(gridLayoutWidget);
         btnNorth->setObjectName(QStringLiteral("btnNorth"));
@@ -98,11 +98,11 @@ public:
 
         gridButtons->addWidget(btnNorth, 0, 1, 1, 1);
 
-        btnTeleport = new QPushButton(gridLayoutWidget);
-        btnTeleport->setObjectName(QStringLiteral("btnTeleport"));
-        btnTeleport->setMaximumSize(QSize(50, 30));
+        btnEast = new QPushButton(gridLayoutWidget);
+        btnEast->setObjectName(QStringLiteral("btnEast"));
+        btnEast->setMaximumSize(QSize(50, 30));
 
-        gridButtons->addWidget(btnTeleport, 1, 1, 1, 1);
+        gridButtons->addWidget(btnEast, 1, 2, 1, 1);
 
         btnWeapon = new QPushButton(centralWidget);
         btnWeapon->setObjectName(QStringLiteral("btnWeapon"));
@@ -155,11 +155,11 @@ public:
     void retranslateUi(QMainWindow *Game)
     {
         Game->setWindowTitle(QApplication::translate("Game", "Game", Q_NULLPTR));
-        btnEast->setText(QApplication::translate("Game", "east", Q_NULLPTR));
-        btnSouth->setText(QApplication::translate("Game", "south", Q_NULLPTR));
         btnWest->setText(QApplication::translate("Game", "west", Q_NULLPTR));
-        btnNorth->setText(QApplication::translate("Game", "north", Q_NULLPTR));
+        btnSouth->setText(QApplication::translate("Game", "south", Q_NULLPTR));
         btnTeleport->setText(QApplication::translate("Game", "teleport", Q_NULLPTR));
+        btnNorth->setText(QApplication::translate("Game", "north", Q_NULLPTR));
+        btnEast->setText(QApplication::translate("Game", "east", Q_NULLPTR));
         btnWeapon->setText(QApplication::translate("Game", "use weapon", Q_NULLPTR));
         lblDur->setText(QApplication::translate("Game", "durability ", Q_NULLPTR));
         lblAttack->setText(QApplication::translate("Game", "attack", Q_NULLPTR));

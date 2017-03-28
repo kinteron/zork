@@ -39,6 +39,7 @@ public:
     bool removeItemFromRoom(string itemName);
     void addEnemy();
     vector<Item> getItemsInRoom() const;
+    Enemy *getEnemy() const;
 
 };
 

@@ -6,7 +6,11 @@ Enemy::Enemy(string description, int health, float attack)
     this->description = description;
     this->health = health;
     this->attack = attack;
-    cout << description.c_str() << " appeared" << endl;
+}
+
+Enemy::~Enemy(){
+//    delete description; //is a pointer
+    //primitives don't have to be deleted
 }
 
 int Enemy::getHealth() const
@@ -32,4 +36,8 @@ void Enemy::setAttack(float value)
 string Enemy::shortDescription() const
 {
     return description;
+}
+
+string Enemy::longDescription() const{
+    return shortDescription() + "\nHP " + to_string(getHealth()) + "\nATK " + to_string(getAttack());
 }

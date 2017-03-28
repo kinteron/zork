@@ -44,19 +44,22 @@ private:
 
     void createRooms();
 
-    bool processCommand(Command &command);
+    bool processCommand(Command command);
     void goRoom(const Command command);
     void printHelp();
     void spawnEnemy();
     void nextRoom(Room*);
     void printWelcome();
+    bool isEnemyPresent() const;
 
 
 public:
 
     bool unique(string name, vector<Item*> list, int index);    //check if it's just available once
     bool fillList(QStringList &list);
-    QString getItemDescription(string name);
+    QString getItemDescription(string name) const;
+    QString getCurrentRoomText() const;
+    QString getEnemyDescription() const;
 
     //generate
     void generateItems();

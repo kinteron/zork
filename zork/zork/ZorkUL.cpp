@@ -28,6 +28,20 @@ bool ZorkUL::unique(string name, vector<Item*> list, int index){
     return true;
 }
 
+bool ZorkUL::isEnemyPresent() const{
+    return true;
+}
+
+QString ZorkUL::getCurrentRoomText() const{
+    string s = "Room " + currentRoom->shortDescription();
+    return QString(s.c_str());
+}
+
+QString ZorkUL::getEnemyDescription() const{
+    if(isEnemyPresent())
+    return QString(currentRoom->getEnemy()->longDescription().c_str());
+}
+
 //saves stack pushes due to inline
 inline int random(int const start, int const end){  //const not allowed
     std::random_device r;
@@ -172,7 +186,7 @@ void ZorkUL::printWelcome() {
 // * returned.
 // */
 
-bool ZorkUL::processCommand(Command &command) {
+bool ZorkUL::processCommand(Command command) {
 
     string commandWord = command.getCommandWord();
 
@@ -238,7 +252,7 @@ bool ZorkUL::processCommand(Command &command) {
     return false;
 }
 
-QString ZorkUL::getItemDescription(string itemName){
+QString ZorkUL::getItemDescription(string itemName) const{
     QString temp = QString("");
     for(int i = 0; i < currentRoom->getItemsInRoom().size(); ++i){
         if(itemName.compare(currentRoom->getItemsInRoom().at(i).shortDescription()) == 0)

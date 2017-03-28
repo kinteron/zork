@@ -4,7 +4,7 @@
 
 
 Game::Game(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::Game), zork(ZorkUL(parent))
+    : QMainWindow(parent), ui(new Ui::Game)
 {
     ui->setupUi(this);
 
@@ -49,22 +49,30 @@ Game::Game(QWidget *parent)
     connect(mapper, SIGNAL(mapped(QString)), &zork, SLOT(going(QString)));
     connect(teleport, SIGNAL(released()), &zork, SLOT(teleport()));
 
-
     itemList->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
     itemList->selectionModel()->connect(itemList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_itemDoubleClicked(QModelIndex)));
     foeStatus->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
-
-    connect(&zork, SIGNAL(updateListView()), this, SLOT(update()));
+    foeStatus->connect(&zork, SIGNAL(updateListView()), this, SLOT(update()));
 
     QListWidgetItem item = QListWidgetItem();
     //enemyStats onClick
 }
 
+
 void Game::update(){
-    QStringList list;
-    bool flag = 0;
-    ui->listItems->selectionModel()->blockSignals(zork.fillList(list));
-    model->setStringList(list);
+//    QString s = zork.getEnemyDescription();
+//    if(zork.isEnemyPresent()){
+//        s = *zork.getEnemyDescription();
+//    } else{
+    QString s = QString("");
+        QStringList list;
+        ui->listItems->selectionModel()->blockSignals(zork.fillList(list)); //call by reference
+        model->setStringList(list);
+//    }
+    ui->lblRoom->setText(zork.getCurrentRoomText());
+    ui->lblEnemy->setText(s);  //value of pointer
+
+
 }
 
 //void Game::on_listWidget_itemDoubleClicked(QListWidgetItem *item){
