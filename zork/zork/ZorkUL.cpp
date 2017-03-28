@@ -6,8 +6,7 @@
 
 
 ZorkUL::ZorkUL(QObject *parent)     //called by MainThread
-    : QObject(parent), character(new Character("Alfred", 1, 0)){  //like super() call
-
+    : QObject(parent), character(new Character("Alfred", 1)){  //like super() call
     createRooms();
     generateItems();
 }
@@ -19,7 +18,8 @@ ZorkUL::~ZorkUL(){
 }
 
 bool ZorkUL::isEnemyPresent() const{
-    return currentRoom->getEnemy() != 0;
+//     return currentRoom->getEnemy() != 0;
+    return currentRoom->getEnemy()->getHealth() != 0;
 }
 
 bool ZorkUL::unique(string name, vector<Item*> list, int index){
@@ -172,17 +172,20 @@ void ZorkUL::createRooms()  {
 
 void ZorkUL::going(const QString btnName){  //call by value -> copy of variable
 
-
 //  assert(processCommand(Command(goPrompt, btnName.toStdString())));
     processCommand(Command(goPrompt, btnName.toStdString()));
 }
 
-//void ZorkUL::equip(const QString itemName){
-//    processCommand(Command(equipPrompt, itemName.toStdString()));
-//}
+void ZorkUL::equipItem(const QString itemName){
+    processCommand(Command(equipPrompt, itemName.toStdString()));
+}
 
-bool ZorkUL::takeItem(QString itemName){
+bool ZorkUL::takeItem(const QString itemName){
     return processCommand(Command(takePrompt, itemName.toStdString())); //global used variable not local scope
+}
+
+void ZorkUL::fight(){
+    processCommand(Command(attackPrompt));
 }
 
 void ZorkUL::printWelcome() {
@@ -215,7 +218,7 @@ bool ZorkUL::processCommand(Command command) {
             cout << "-------------------" << endl;
             cout << "-[final room]-" << endl;
         }
-    if(commandWord.compare("go") == 0){
+    else if(commandWord.compare("go") == 0){
         goRoom(command);
         spawnEnemy();
     }
@@ -233,23 +236,29 @@ bool ZorkUL::processCommand(Command command) {
                 cout << character->longDescription() << endl;    //check if he has a weapon
                 cout << "item " + item->shortDescription() + " added to inventory" << endl;
                 if(currentRoom->removeItemFromRoom(command.getSecondWord())){
-
+                    cout << item->shortDescription() << " removed" << endl;
                 }
             }
         }
     }
 
     else if(commandWord.compare("attack") == 0){
-
+        if(isEnemyPresent())
+            character->attackOn(currentRoom->getEnemy());
     }
 
     else if (commandWord.compare("equip") == 0)
     {
         if(command.hasSecondWord()){
-//            return character->equipItem(character.transformName(command.getSecondWord()));
-            return true;
-        } else{
-            cout << "no such item" << endl;
+            cout << command.getSecondWord() << endl;
+            if(character->equipItem(character->fromInventory(command.getSecondWord()))){ //passing itemName
+                //emit event; update GUI
+                cout << "equipped " << character->getEquippedItem() << endl;
+                return true;
+            }
+            else{
+                cout << "no such item in inventory" << endl;
+            }
         }
     }
 
@@ -259,6 +268,7 @@ bool ZorkUL::processCommand(Command command) {
         else
             return true; /**signal to quit*/
     }
+    //final
     return false;
 }
 
@@ -287,7 +297,7 @@ bool ZorkUL::fillList(QStringList &list){
 
 void ZorkUL::spawnEnemy(){
     //normal enemy
-    currentRoom->addEnemy();
+    currentRoom->addEnemy(character->getLvl());
 }
 
 
@@ -309,14 +319,13 @@ void ZorkUL::goRoom(Command command) {
     nextRoom(next);
 }
 
-
-
 void ZorkUL::nextRoom(Room* nextRoom){
     if (nextRoom == NULL)
         cout << "no exit here"<< endl;
     else {
         currentRoom = nextRoom;
         cout << currentRoom->longDescription() << endl;
+        spawnEnemy();
         //trigger
         updateListView();
     }

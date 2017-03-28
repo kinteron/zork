@@ -51,8 +51,6 @@ private:
     void nextRoom(Room*);
     void printWelcome();
 
-
-
 public:
 
     bool unique(string name, vector<Item*> list, int index);    //check if it's just available once
@@ -63,6 +61,7 @@ public:
     QString getEnemyName() const;
 
     bool isEnemyPresent() const;
+    void equipItem(QString);
 
     //generate
     void generateItems();
@@ -72,9 +71,10 @@ private slots:
     void going(const QString btnName);
     void teleport(void);
 
-
 public slots:
     bool takeItem(QString itemName);
+    void fight(void);
+
 
 signals:
     void updateListView(void);

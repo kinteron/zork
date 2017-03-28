@@ -15,13 +15,16 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 		exits["south"] = south;
 	if (west != NULL)
 		exits["west"] = west;
-
-    addEnemy();
 }
 
-void Room::addEnemy(){
+void Room::addEnemy(int lvl){
     //current used enemy
+    float factor = 2.f;
     enemy = new Enemy("fleaman", 20, 8.f);
+    float attack =lvl*enemy->getAttack() / factor / GAME_FACTOR;
+    int health = (int)(lvl*enemy->getHealth()/factor / GAME_FACTOR);
+    enemy->setHealth(health);
+    enemy->setAttack(attack);
 //    this->enemy = &e;   //will loose enemy reference after method }
 }
 
@@ -55,14 +58,13 @@ Room* Room::nextRoom(string direction) {
 
 void Room::addItem(Item *inItem) {
     itemsInRoom.push_back(*inItem);
-
 }
 
 string Room::displayItem() {
     string tempString = "items in room = ";
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1) {
-        tempString = "no items in room "  + this->shortDescription();
+            tempString = "no items in room "  + this->shortDescription();
         }
     else if (itemsInRoom.size() > 0) {
        int x = (0);
@@ -83,7 +85,6 @@ bool Room::removeItemFromRoom(string itemName){
         Item item = ((Item )*i);    //iterator points to object
         if(item.shortDescription().compare(itemName) == 0){
             itemsInRoom.erase(i);
-            cout << item.shortDescription() << " removed" << endl;
             return true;
         }
     }

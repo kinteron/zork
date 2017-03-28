@@ -1729,9 +1729,9 @@ debug\game.obj: ..\zork\game.cpp ../zork/game.h \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QListWidget" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QMenu" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QMenuBar" \
+		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QPlainTextEdit" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QPushButton" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QStatusBar" \
-		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QTextEdit" \
 		"C:\Program Files (x86)\Qt\5.8\msvc2013_64\include\QtWidgets\QToolBar"
 
 debug\ZorkUL.obj: ..\zork\zork\ZorkUL.cpp ../zork/zork/ZorkUL.h \
@@ -1820,7 +1820,8 @@ debug\weapon.obj: ..\zork\zork\weapon.cpp ../zork/zork/weapon.h \
 debug\Character.obj: ..\zork\zork\Character.cpp ../zork/zork/Character.h \
 		../zork/zork/item.h \
 		../zork/zork/includes.h \
-		../zork/zork/weapon.h
+		../zork/zork/weapon.h \
+		../zork/zork/enemy.h
 
 debug\enemy.obj: ..\zork\zork\enemy.cpp ../zork/zork/enemy.h \
 		../zork/zork/includes.h

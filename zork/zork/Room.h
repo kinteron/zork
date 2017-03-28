@@ -37,7 +37,7 @@ public:
     string displayItem();
     Item *isItemInRoom(string inString);
     bool removeItemFromRoom(string itemName);
-    void addEnemy();
+    void addEnemy(int lvl);
     vector<Item> getItemsInRoom() const;
     Enemy *getEnemy() const;
 

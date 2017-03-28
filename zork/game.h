@@ -27,6 +27,7 @@ private slots:
     void on_itemClicked(QModelIndex index);
     void on_itemDoubleClicked(QModelIndex index);
     void update();
+    void onEquip();
 
 private:
     Ui::Game *ui;

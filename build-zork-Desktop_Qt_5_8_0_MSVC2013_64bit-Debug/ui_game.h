@@ -22,9 +22,9 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -49,8 +49,9 @@ public:
     QListView *listItems;
     QLabel *lblEnemy;
     QLabel *lblRoom;
-    QTextEdit *editWeapon;
     QListWidget *enemyStats;
+    QPlainTextEdit *editItem;
+    QLabel *lblEquipped;
     QMenuBar *menuBar;
     QMenu *menuZork;
     QToolBar *mainToolBar;
@@ -115,7 +116,7 @@ public:
         lblAttack->setGeometry(QRect(340, 140, 71, 21));
         btnEquip = new QPushButton(centralWidget);
         btnEquip->setObjectName(QStringLiteral("btnEquip"));
-        btnEquip->setGeometry(QRect(420, 180, 51, 31));
+        btnEquip->setGeometry(QRect(370, 210, 51, 31));
         listItems = new QListView(centralWidget);
         listItems->setObjectName(QStringLiteral("listItems"));
         listItems->setGeometry(QRect(160, 180, 171, 91));
@@ -125,12 +126,15 @@ public:
         lblRoom = new QLabel(centralWidget);
         lblRoom->setObjectName(QStringLiteral("lblRoom"));
         lblRoom->setGeometry(QRect(160, 270, 171, 16));
-        editWeapon = new QTextEdit(centralWidget);
-        editWeapon->setObjectName(QStringLiteral("editWeapon"));
-        editWeapon->setGeometry(QRect(330, 180, 91, 31));
         enemyStats = new QListWidget(centralWidget);
         enemyStats->setObjectName(QStringLiteral("enemyStats"));
         enemyStats->setGeometry(QRect(10, 180, 151, 91));
+        editItem = new QPlainTextEdit(centralWidget);
+        editItem->setObjectName(QStringLiteral("editItem"));
+        editItem->setGeometry(QRect(330, 180, 141, 31));
+        lblEquipped = new QLabel(centralWidget);
+        lblEquipped->setObjectName(QStringLiteral("lblEquipped"));
+        lblEquipped->setGeometry(QRect(330, 240, 141, 41));
         Game->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Game);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -166,6 +170,7 @@ public:
         btnEquip->setText(QApplication::translate("Game", "equip", Q_NULLPTR));
         lblEnemy->setText(QApplication::translate("Game", "Enemy", Q_NULLPTR));
         lblRoom->setText(QApplication::translate("Game", "Room", Q_NULLPTR));
+        lblEquipped->setText(QApplication::translate("Game", "weapon none", Q_NULLPTR));
         menuZork->setTitle(QApplication::translate("Game", "Zork", Q_NULLPTR));
     } // retranslateUi
 

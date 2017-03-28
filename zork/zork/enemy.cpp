@@ -11,6 +11,9 @@ Enemy::Enemy(string description, int health, float attack)
 Enemy::~Enemy(){
 //    delete description; //is a pointer
     //primitives don't have to be deleted
+    description = "";
+    health = 0;
+    attack = 0;
 }
 
 int Enemy::getHealth() const

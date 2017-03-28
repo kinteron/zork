@@ -143,8 +143,8 @@
    <widget class="QPushButton" name="btnEquip">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>180</y>
+      <x>370</x>
+      <y>210</y>
       <width>51</width>
       <height>31</height>
      </rect>
@@ -189,16 +189,6 @@
      <string>Room</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="editWeapon">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>180</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QListWidget" name="enemyStats">
     <property name="geometry">
      <rect>
@@ -207,6 +197,29 @@
       <width>151</width>
       <height>91</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="editItem">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>180</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblEquipped">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>240</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>weapon none</string>
     </property>
    </widget>
   </widget>

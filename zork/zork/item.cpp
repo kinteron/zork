@@ -40,9 +40,19 @@ int Item::getValue(){
 
 string Item::longDescription()
 {
-    string weight = to_string(weightKG);
-    string val = to_string(value);
-    return "value: " + val + "\nweight: " + weight + "\n" + getFunfact();
+
+    int big = (int)(weightKG*100);
+    int small = 0;
+    int kilo = (int)(weightKG)*100;
+    if(big != 0){
+        small = big % kilo;
+    }
+    kilo /=100;
+
+    string weight = to_string(kilo) + "," + to_string(small) + "kg";
+
+    return "value " + to_string(getValue()) + "\nweight" + weight + "\n" + getFunfact();
+
 }
 
 Item Item::operator=(Item other){

@@ -9,7 +9,6 @@ Game::Game(QWidget *parent)
     ui->setupUi(this);
 
     //setup Controls
-
     QPushButton *north = ui->btnNorth;  //pointer = &  -> can be handed as a parameter in connect()
     QPushButton *east = ui->btnEast;
     QPushButton *south = ui->btnWest;
@@ -20,6 +19,8 @@ Game::Game(QWidget *parent)
 
     QListView *itemList = ui->listItems;
     QListWidget *foeStatus = ui->enemyStats;
+    QPlainTextEdit *txtItem = ui->editItem;
+
     itemList->setUniformItemSizes(true); //every item has the same size
 
     //for the listview
@@ -36,38 +37,55 @@ Game::Game(QWidget *parent)
     mapper->setMapping(east, QString(east->text()));
     mapper->setMapping(west, QString(west->text()));
     mapper->setMapping(south, QString(south->text()));
-//    mapper->setMapping(&zork, zork.isEnemyPresent());   //parameter
+//    mapper->setMapping(equip, txtItem->textCursor().block().text());   //parameter
 
     //sender, signal, receiver, slot
+    //directions go...
     connect(north, SIGNAL(released()), mapper, SLOT(map()));
     connect(east, SIGNAL(released()), mapper, SLOT(map()));
     connect(west, SIGNAL(released()), mapper, SLOT(map()));
     connect(south, SIGNAL(released()), mapper, SLOT(map()));
+//    connect(equip, SIGNAL(released()), mapper, SLOT(map()));
 
     //connect signal to evaluateClick() from zork
     connect(mapper, SIGNAL(mapped(QString)), &zork, SLOT(going(QString)));
     connect(teleport, SIGNAL(released()), &zork, SLOT(teleport()));
-//    connect(mapper, SIGNAL(mapped(int)), this, SLOT(updateRoom(int)));
 
     itemList->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
     itemList->selectionModel()->connect(itemList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_itemDoubleClicked(QModelIndex)));
+
+    //enemy
     foeStatus->selectionModel()->connect(itemList, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
     foeStatus->connect(&zork, SIGNAL(updateListView()), this, SLOT(update()));
+
+    //weapon
+//    connect(equip, SIGNAL(released()), &zork, SLOT(equipItem(QString)));
+    //calc health (enemy, character)
+    connect(weapon, SIGNAL(released()), &zork, SLOT(fight()));
+    //and update view
+    connect(weapon, SIGNAL(released()), this, SLOT(update()));
+    connect(equip, SIGNAL(released()), this, SLOT(onEquip()));
 
     QListWidgetItem item = QListWidgetItem();
     //enemyStats onClick
 }
 
+void Game::onEquip(){
+    QString s = ui->editItem->textCursor().block().text();
+    zork.equipItem(s);
+}
+
 void Game::update(){
     ui->enemyStats->clear();
+    QStringList list;
     if(zork.isEnemyPresent()){
         ui->lblEnemy->setText(zork.getEnemyName());  //value of pointer
         ui->enemyStats->addItem(zork.getEnemyDescription());
     } else{
-        QStringList list;
         ui->listItems->selectionModel()->blockSignals(zork.fillList(list)); //call by reference
-        model->setStringList(list);
+        ui->lblEnemy->setText(QString(""));
     }
+    model->setStringList(list);
     ui->lblRoom->setText(zork.getCurrentRoomText());
 }
 
