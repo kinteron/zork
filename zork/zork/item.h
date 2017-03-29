@@ -23,9 +23,12 @@ private:
     float weightKG;
     int value;    //used for healing items
 
+
 public:
 
     //default
+
+
 
     Item(string description = "empty", int inValue = 0, float inWeight = .001f, string funfact = "");  //healing items
     //healing stuff

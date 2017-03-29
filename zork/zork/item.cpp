@@ -23,10 +23,7 @@ float Item::getWeight(){
 
 void Item::setValue(int inValue)
 {
-    if (inValue > 9999 || inValue < -4)
-       cout << "value invalid, must be 0<value<9999" ;
-    else
-       value = inValue;
+    value = inValue;
 }
 
 string Item::shortDescription()
@@ -41,17 +38,19 @@ int Item::getValue(){
 string Item::longDescription()
 {
 
-    int big = (int)(weightKG*100);
-    int small = 0;
-    int kilo = (int)(weightKG)*100;
-    if(big != 0){
-        small = big % kilo;
-    }
-    kilo /=100;
+    short mask = -1;    //all bits are 1
+    mask<<=8;           //filled with 8x0s from << (right to left)
+    mask = ~mask;       //turn 0->1 and 1->0
 
-    string weight = to_string(kilo) + "," + to_string(small) + "kg";
+    //mask is 255dec // shiftleft is nothing less than multiplying by 2
 
-    return "value " + to_string(getValue()) + "\nweight" + weight + "\n" + getFunfact();
+    short w = (short)getWeight();
+    float weight = getWeight() - w;
+    weight*=100.f;
+    short eight = (short)weight;
+
+    //extend to float
+    return "value " + to_string(getValue()) + "\nweight " + to_string(w) + "," + to_string(eight) + " kg\n" + getFunfact();
 
 }
 

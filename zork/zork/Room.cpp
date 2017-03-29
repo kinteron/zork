@@ -17,10 +17,10 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 		exits["west"] = west;
 }
 
-void Room::addEnemy(int lvl){
+void Room::addEnemy(string name, int lvl){
     //current used enemy
     float factor = 2.f;
-    enemy = new Enemy("fleaman", 20, 8.f);
+    enemy = new Enemy(name, 20, 8.f);
     float attack =lvl*enemy->getAttack() / factor / GAME_FACTOR;
     int health = (int)(lvl*enemy->getHealth()/factor / GAME_FACTOR);
     enemy->setHealth(health);

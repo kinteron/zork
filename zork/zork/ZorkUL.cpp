@@ -71,6 +71,7 @@ void ZorkUL::generateItems(){
      * don't forget to delete[] items
      *
      */
+
     //weapons       //allocates strings on heap
     items[0] = new Weapon("feather", 1, 999);
     items[1] = new Weapon("beater", 30, 999, 2.8f);
@@ -82,7 +83,7 @@ void ZorkUL::generateItems(){
     items[15] = new Weapon("selfmade weapon", 25, 30, 8.3f, "whoever created this weapon, he's a fucking genius putting a rock and a chain together");
     items[16] = new Weapon("terminator 9999", 99, 5, 55.56f, "where did you find this murderous weapon?\nthe enemy which can withstand THIS weapon has to be born yet\nyou can beat the endboss like nothing\ngood lu... just win!");
 
-    //normal items
+    //normal / standard items
     items[6] = new Item("old wrinkled book");
     items[7] = new Item("toothbrush", 0, .05f, "you should use it though");
     items[8] = new Item("slime");
@@ -95,14 +96,15 @@ void ZorkUL::generateItems(){
     //keys
     items[17] = new Item("key-1", -1, .0f, "you need 3 of those");
     items[18] = new Item("key-2", -2, .0f, "you need 3 of those");
-    items[19] = new Item("master-key", -3, .0f, "just kidding!\nyou still need all three to get to enter the top floor");
-    items[20] = new Item("small potion", 10, 0.6f, "regains 10 HP");
-    items[21] = new Item("potion", 30, 0.8f, "regains 30 HP");
+    items[19] = new Item("key-3", -3, .0f, "just kidding!you still need all three to get to enter the top floor");
+    items[20] = new Item("small potion", -10, 0.6f, "regains 10 HP");
+    items[21] = new Item("potion", -30, 0.8f, "regains 30 HP");
     //if item added, change itemSize
 
     int size = 0;
 
-    for(int i = 0; i < random(0, itemArraySize-6); ++i){
+//    for(int i = 0; i < random(0, itemArraySize-6); ++i){  //not all items
+    for(int i = 0; i < itemArraySize-6; ++i){              //all standard items
         int rand = random(0, itemArraySize-6);   //items 0-16
         if(unique(items[rand]->shortDescription(), tempList, size)){
             Item *item = items[rand];
@@ -116,11 +118,20 @@ void ZorkUL::generateItems(){
     for(int i = itemArraySize-6; i < itemArraySize; ++i){
         m_rooms[random(0,8)]->addItem(items[i]);
     }
+
+    string keycombination;
+    for(int i = 17; i < 20; ++i){
+        keycombination += items[i]->shortDescription() + " ";
+        character->addItem(*items[i]);
+    }
+
+    character->setKeyCombination(keycombination);
+
 }
 
 
 void ZorkUL::createRooms()  {
-    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *boss;
+    Room *a, *b, *c, *d, *e, *f, *g, *h, *i;
 
     a = new Room("a");
     b = new Room("b");
@@ -134,7 +145,7 @@ void ZorkUL::createRooms()  {
     h = new Room("h");
     i = new Room("i");
     //boss room
-    boss = new Room("boss");
+//    boss = new Room("boss");  //necessary?
 
     //add rooms to list
     m_rooms.push_back(a);
@@ -146,7 +157,7 @@ void ZorkUL::createRooms()  {
     m_rooms.push_back(g);
     m_rooms.push_back(h);
     m_rooms.push_back(i);
-    m_rooms.push_back(boss);
+//    m_rooms.push_back(boss);
 
 
 //             (N, E, S, W)
@@ -159,7 +170,8 @@ void ZorkUL::createRooms()  {
     g->setExits(NULL, NULL, NULL, f);
     h->setExits(NULL, f, NULL, NULL);
     i->setExits(NULL, d, NULL, NULL);
-    boss->setExits(NULL,NULL,NULL,NULL);
+
+//    boss->setExits(NULL,NULL,NULL,NULL);
 
     printWelcome();
     nextRoom(a);
@@ -191,6 +203,20 @@ void ZorkUL::fight(){
 void ZorkUL::printWelcome() {
     cout << "start"<< endl;
     cout << "info for help"<< endl;
+    cout << STORY << endl;
+}
+
+
+inline void ZorkUL::evaluateItem(Item* item){
+    switch(item->getValue()){
+    case -3 :
+    case -2 :
+    case -1 : currentRoom->removeItemFromRoom(item->shortDescription());
+        allKeys();
+        break;
+    default :
+        break;
+    }
 }
 
 ///**
@@ -203,22 +229,7 @@ bool ZorkUL::processCommand(Command command) {
 
     string commandWord = command.getCommandWord();
 
-    if (commandWord.compare("info") == 0)
-        printHelp();
-
-    else if (commandWord.compare("map") == 0)
-        {
-            cout << "[h] --- [f] --- [g]" << endl;
-            cout << "         |         " << endl;
-            cout << "         |         " << endl;
-            cout << "[c] --- [a] --- [b]" << endl;
-            cout << "         |         " << endl;
-            cout << "         |         " << endl;
-            cout << "[i] --- [d] --- [e]" << endl;
-            cout << "-------------------" << endl;
-            cout << "-[final room]-" << endl;
-        }
-    else if(commandWord.compare("go") == 0){
+    if(commandWord.compare("go") == 0){
         goRoom(command);
         spawnEnemy();
     }
@@ -232,11 +243,14 @@ bool ZorkUL::processCommand(Command command) {
             if(item == NULL){
                 cout << "item not found" << endl;
             } else {
-                character->addItem(*item); //change
-                cout << character->longDescription() << endl;    //check if he has a weapon
-                cout << "item " + item->shortDescription() + " added to inventory" << endl;
-                if(currentRoom->removeItemFromRoom(command.getSecondWord())){
-                    cout << item->shortDescription() << " removed" << endl;
+                evaluateItem(item); //nicely handled
+                if(character->addItem(*item)){ //change
+                    cout << character->longDescription() << endl;    //check if he has a weapon
+                    cout << "item " + item->shortDescription() + " added to inventory" << endl;
+
+
+                } else{ //inventory is full
+                    cout << "your character already has too many items\ndrop some!" << endl;
                 }
             }
         }
@@ -250,16 +264,46 @@ bool ZorkUL::processCommand(Command command) {
     else if (commandWord.compare("equip") == 0)
     {
         if(command.hasSecondWord()){
-            cout << command.getSecondWord() << endl;
-            if(character->equipItem(character->fromInventory(command.getSecondWord()))){ //passing itemName
-                //emit event; update GUI
-                cout << "equipped " << character->getEquippedItem() << endl;
-                return true;
+            cout << command.getSecondWord().c_str() << endl;
+            cout << character->getKeyCombination().c_str() << endl;
+            if(command.getSecondWord().compare(character->getKeyCombination())){
+                    //dirty
+                currentRoom->setExits(NULL,NULL,NULL,NULL);
+                currentRoom->addEnemy("super-mega boss o'manian", 2000);
+                return false;
             }
-            else{
+
+            else if(character->equipItem(character->fromInventory(command.getSecondWord()))){ //passing itemName
+                //emit event; update GUI
+                cout << "equipped " << character->getEquippedItem()->shortDescription() << endl;
+                return true;
+            } else{
                 cout << "no such item in inventory" << endl;
+                character->equipItem(0);
+                cout << "fight with your bare hands" << endl;
             }
         }
+
+        if(command.getSecondWord().compare("character")){
+            cout << character->longDescription() << endl;
+        } else if (command.getSecondWord().compare("info") == 0){
+            printHelp();
+            return false;
+        }
+//            else if (command.getSecondWord().compare("map") == 0)
+//            {
+//                cout << "[h] --- [f] --- [g]" << endl;
+//                cout << "         |         " << endl;
+//                cout << "         |         " << endl;
+//                cout << "[c] --- [a] --- [b]" << endl;
+//                cout << "         |         " << endl;
+//                cout << "         |         " << endl;
+//                cout << "[i] --- [d] --- [e]" << endl;
+//                cout << "-------------------" << endl;
+//                cout << "-[final room]-" << endl;
+
+//                return false;
+//            }
     }
 
     else if (commandWord.compare("quit") == 0) {
@@ -281,8 +325,22 @@ QString ZorkUL::getItemDescription(string itemName) const{
     return temp;
 }
 
-bool ZorkUL::fillList(QStringList &list){
+QString ZorkUL::getItemValue() const{
+    if(character->getEquippedItem() != 0){
+        return QString(character->getEquippedItem()->getValue());
+    }
+    return QString("");
+}
 
+QString ZorkUL::getItemDurability() const{
+    QString s("");
+    if(character->getEquippedItem() != 0){
+        return QString(((Weapon*)character->getEquippedItem())->getDurability());
+    }
+    return s;
+}
+
+bool ZorkUL::fillList(QStringList &list){
     if(currentRoom->getItemsInRoom().size() > 0){
         for(int i = 0; i < currentRoom->getItemsInRoom().size(); ++i){
             Item item = currentRoom->getItemsInRoom().at(i);
@@ -295,9 +353,17 @@ bool ZorkUL::fillList(QStringList &list){
     }
 }
 
+QString ZorkUL::getItemName() const{
+    QString s("fists");
+    if(character->getEquippedItem() != 0){
+        return QString(character->getEquippedItem()->shortDescription().c_str());
+    }
+    return s;
+}
+
 void ZorkUL::spawnEnemy(){
     //normal enemy
-    currentRoom->addEnemy(character->getLvl());
+    currentRoom->addEnemy("fleaman", character->getLvl());
 }
 
 
@@ -319,6 +385,15 @@ void ZorkUL::goRoom(Command command) {
     nextRoom(next);
 }
 
+void ZorkUL::allKeys(){
+    if(character->countKeys()>2){
+        cout << "you achieved all 3 keys, maybe you can do something with that\nor just throw them away...";
+        cout << "I think a door opened somewhere..." << endl;
+    } else{
+        cout << "not done yet" << endl;
+    }
+}
+
 void ZorkUL::nextRoom(Room* nextRoom){
     if (nextRoom == NULL)
         cout << "no exit here"<< endl;
@@ -335,4 +410,8 @@ void ZorkUL::teleport(){
     //room between 0 and 8
     Room* next = m_rooms.at(random(0,8));
     nextRoom(next);
+}
+
+void ZorkUL::openBossDoor(){
+
 }

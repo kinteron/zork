@@ -170,7 +170,7 @@ public:
         btnEquip->setText(QApplication::translate("Game", "equip", Q_NULLPTR));
         lblEnemy->setText(QApplication::translate("Game", "Enemy", Q_NULLPTR));
         lblRoom->setText(QApplication::translate("Game", "Room", Q_NULLPTR));
-        lblEquipped->setText(QApplication::translate("Game", "weapon none", Q_NULLPTR));
+        lblEquipped->setText(QApplication::translate("Game", "Weapon none", Q_NULLPTR));
         menuZork->setTitle(QApplication::translate("Game", "Zork", Q_NULLPTR));
     } // retranslateUi
 

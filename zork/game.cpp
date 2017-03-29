@@ -4,7 +4,7 @@
 
 
 Game::Game(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::Game)
+    : QMainWindow(parent), ui(new Ui::Game),zork(new ZorkUL(parent))
 {
     ui->setupUi(this);
 
@@ -73,6 +73,9 @@ Game::Game(QWidget *parent)
 void Game::onEquip(){
     QString s = ui->editItem->textCursor().block().text();
     zork.equipItem(s);
+    ui->lblEquipped->setText("Weapon " + zork.getItemName());
+    ui->lblAttack->setText("attack " + zork.getItemValue());
+    ui->lblDur->setText("durability " + zork.getItemDurability());
 }
 
 void Game::update(){

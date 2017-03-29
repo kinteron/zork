@@ -12,11 +12,17 @@
 using namespace std;
 
 
-static const string STORY = "story";
+static const string STORY = "wants upon a time... save this sh**\nsome guy just fell down a mountain and he wakes up in a cave-like dungeon";
+static const string TRIGGER = "it looks like the keys can be combined somehow...";
 
 class Character {
 
 private:
+
+    //key combination
+    string keyCombination;
+    int keyCount = 0;
+
     //char*
     string description; //player's name
 
@@ -27,19 +33,22 @@ private:
     unsigned int attack;    //same
     Item *equipped = 0;  //reference should be accessed: pointer to 'nowhere'
 
-    const int MAX_ITEMS = 4;    //unchangeable variable
+    const int MAX_ITEMS = 13;    //unchangeable variable
 
     //intern methods
-    void increaseHealth(const float value);   //when lvlUp()
 
     char* printComparison(const bool comparison_between_Types); //print different things
+
+//    bool evaluateItem(int value);
 
 public:
     //default constructor with preset values
     Character(const string description = "hero", const int lvl = 1);
     string shortDescription() const;    //getter
     string longDescription();
+    string getKeyCombination();
 
+    void increaseHealth(const float value);   //when lvlUp()
     //getter
     Item *getInventoryAsArray() const;    //used as an array pointer to first element, later jump with pointer to next element
     vector<Item> getInventory() const;
@@ -63,13 +72,17 @@ public:
 
     void damage(Enemy *foe);
 
-    void addItem(const Item item);    //maybe pointer or reference    //add to inventory, not const might be changed (resetted)
+    void setKeyCombination(string combination);
+
+    bool addItem(const Item item);    //maybe pointer or reference    //add to inventory, not const might be changed (resetted)
 
 //    void setMaxItems(int capacity);   //alpha version
     void setAttack(); //might be changed
     void lvlUp();   //several member-value changes
 
     void attackOn(Enemy * enemy);
+
+    int countKeys();
 
 //    Item transformName(string const name) const;//?
 

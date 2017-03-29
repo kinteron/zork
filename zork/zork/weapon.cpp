@@ -15,3 +15,7 @@ void Weapon::setDurability(int value)
 {
     durability = value;
 }
+
+int Weapon::decreaseDurability(){
+    return durability--;
+}

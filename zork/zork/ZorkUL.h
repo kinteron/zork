@@ -41,7 +41,6 @@ private:
     Parser parser;
     Room *currentRoom;  //points to a room
 
-
     void createRooms();
 
     bool processCommand(Command command);
@@ -51,6 +50,10 @@ private:
     void nextRoom(Room*);
     void printWelcome();
 
+    void allKeys();
+
+    inline void evaluateItem(Item *item);
+
 public:
 
     bool unique(string name, vector<Item*> list, int index);    //check if it's just available once
@@ -59,6 +62,9 @@ public:
     QString getCurrentRoomText() const;
     QString getEnemyDescription() const;
     QString getEnemyName() const;
+    QString getItemName() const;
+    QString getItemValue() const;
+    QString getItemDurability() const;
 
     bool isEnemyPresent() const;
     void equipItem(QString);
@@ -66,6 +72,7 @@ public:
     //generate
     void generateItems();
 
+    void openBossDoor(void);
 
 private slots:
     void going(const QString btnName);
@@ -75,9 +82,9 @@ public slots:
     bool takeItem(QString itemName);
     void fight(void);
 
-
 signals:
     void updateListView(void);
+
 
 public:
     ZorkUL(QObject *parent = 0);    //Threads are operating with QObjects, by default the parent is currently this class (has no parents)

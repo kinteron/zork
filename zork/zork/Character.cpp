@@ -8,15 +8,23 @@ Character::Character(const string description, int const lvl){
     this->description = description;
     this->lvl = lvl;
     setAttack();
+    health = GAME_FACTOR*lvl*100;
 }
 
-void Character::addItem(const Item item){
-    if(inventory.size() < MAX_ITEMS)
+bool Character::addItem(const Item item){
+    if(inventory.size() < MAX_ITEMS){
         inventory.push_back(item);
+        return true;
+    }
+    return false;
 }
 
 string Character::shortDescription() const {
     return description;
+}
+
+int Character::countKeys(){
+    return ++keyCount;
 }
 
 string Character::longDescription()
@@ -35,8 +43,10 @@ unsigned int Character::getAttack() const{
 }
 
 void Character::attackOn(Enemy *enemy){
+    //quick and dirty
+
     int damage;
-    if(enemy->getHealth() < 0 ){
+    if(enemy->getHealth() <= 0 ){   //feature calculations
         damage = 0;
         enemy->~Enemy();
         enemy = NULL;
@@ -52,7 +62,6 @@ void Character::setAttack(){
         return;
     }
     const float power = GAME_FACTOR * lvl / 0.2f * lvl;
-    cout << "power " << power;
     //fixed values
     attack = equipped->getValue() + power;
 }
@@ -62,8 +71,8 @@ float Character::getHealth() const{
 }
 
 void Character::increaseHealth(float value){
-    value += GAME_FACTOR;
-    health = value / GAME_FACTOR;
+    value = GAME_FACTOR * value / 100.f;
+    health += value / GAME_FACTOR;
 }
 
 vector<Item> Character::getInventory() const{
@@ -88,18 +97,28 @@ bool Character::equipItem(Item *item){  //is an alias for the value that comes i
     if(ptr != NULL){
         equipped = item;    //gets lost?
         setAttack();
-        cout << item->shortDescription() + " equipped!" << endl;
         return true;
     }
+
     return false;
 }
 
+void Character::setKeyCombination(string combination){
+    //careful cheat!
+    this->keyCombination = combination;
+}
+
+string Character::getKeyCombination(){
+    return this->keyCombination;
+}
+
 Item *Character::fromInventory(string name){
+    if(keyCombination.compare(name)){   //trimming would be nice
+        return &Item("master-key", -5, 1.f, "good luck!");
+    }
     for(int i = 0; i < inventory.size(); ++i){
         Item *it = &(inventory.at(i));
-        cout << it->shortDescription() << endl;
         if(it->shortDescription().compare(name) == 0){
-
             return it;
         }
     }
@@ -109,7 +128,6 @@ Item *Character::fromInventory(string name){
 //overloaded
 bool Character::equipItem(Weapon &weapon, int bonus){
     return equipItem(&weapon);
-
 }
 
 int Character::getLvl() const{
