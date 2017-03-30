@@ -89,6 +89,7 @@ signals:
 
 public:
     Room* getBossRoom();
+    void endGame(void);
     ZorkUL(QObject *parent = 0);    //Threads are operating with QObjects, by default the parent is currently this class (has no parents)
 //    void play();    //calls game routine    //should emit the signal whenever the thread is done
 //	string go(string direction);
@@ -97,8 +98,6 @@ public:
 //    signals:    //to trigger an event for other objects within this game/application
 //        void playingGame();   //as the program is staying in the loop, we could call smt
 //        // can call them with emit methodName
-
-
 };
 
 #endif /*ZORKUL_H_*/

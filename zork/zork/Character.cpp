@@ -75,6 +75,10 @@ void Character::increaseHealth(float value){
     health += value / GAME_FACTOR;
 }
 
+void Character::decreaseHealth(float value){
+    health -= value;
+}
+
 vector<Item> Character::getInventory() const{
     return inventory;
 }
@@ -127,6 +131,10 @@ Item *Character::fromInventory(string name){
         }
     }
     return 0;
+}
+
+Character::~Character(){
+    delete equipped;
 }
 
 //overloaded

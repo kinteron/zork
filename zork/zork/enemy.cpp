@@ -11,9 +11,10 @@ Enemy::Enemy(string description, int health, float attack)
 Enemy::~Enemy(){
 //    delete description; //is a pointer
     //primitives don't have to be deleted
+//    delete [] description;
     description = "";
-    health = 0;
     attack = 0;
+    health = 0.f;
 }
 
 int Enemy::getHealth() const
@@ -28,7 +29,7 @@ void Enemy::setHealth(int value)
 
 float Enemy::getAttack() const
 {
-    return attack;
+    return attack*GAME_FACTOR;
 }
 
 void Enemy::setAttack(float value)

@@ -44,12 +44,14 @@ private:
 public:
     //default constructor with preset values
     Character(const string description = "hero", const int lvl = 1);
+    virtual ~Character();
     string shortDescription() const;    //getter
     string longDescription();
     string getKeyCombination();
     Item * checkCombination(string combination);
 
     void increaseHealth(const float value);   //when lvlUp()
+    void decreaseHealth(const float value);
     //getter
     Item *getInventoryAsArray() const;    //used as an array pointer to first element, later jump with pointer to next element
     vector<Item> getInventory() const;
@@ -66,10 +68,8 @@ public:
     Item *fromInventory(string name);
     //template 'overloading'
     //when enemy does action
-    template <typename Type> void joust(Type attribute){    //can have a return type too
-        //compare two types with eachother
-        printComparison(item_t > own_t);    //his e.g. is bigger than yours
-    }
+
+    template <typename Type> void joust(Type attribute1, Type attribute2);
 
     void damage(Enemy *foe);
 

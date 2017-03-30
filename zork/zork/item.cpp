@@ -9,6 +9,11 @@ Item::Item(string inDescription, int inValue, float inWeightKG, string funfact){
     this->funfact = funfact;
 }
 
+Item::~Item(){
+
+}
+
+
 void Item::setWeight(float inWeightKG)
 {
     if (inWeightKG > 9999.f || inWeightKG < .0f)

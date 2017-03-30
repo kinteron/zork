@@ -27,10 +27,8 @@ private:
 public:
 
     //default
-
-
-
     Item(string description = "empty", int inValue = 0, float inWeight = .001f, string funfact = "");  //healing items
+    virtual ~Item();
     //healing stuff
 
     string shortDescription();

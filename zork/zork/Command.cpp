@@ -10,6 +10,10 @@ Command::Command(string firstWord, string secondWord){
 	this->secondWord = secondWord;
 }
 
+Command::~Command(){
+
+}
+
 /**
  * Return the command word (the first word) of this command. If the
  * command was not understood, the result is null.

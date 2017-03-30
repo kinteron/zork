@@ -104,8 +104,8 @@ void ZorkUL::generateItems(){
     int size = 0;
 
 //    for(int i = 0; i < random(0, itemArraySize-6); ++i){  //not all items
-    for(int i = 0; i < itemArraySize-6; ++i){              //all standard items
-        int rand = random(0, itemArraySize-6);   //items 0-16
+    for(int i = 0; i < itemArraySize-7; ++i){              //all standard items
+        int rand = random(0, itemArraySize-7);   //items 0-16
         if(unique(items[rand]->shortDescription(), tempList, size)){
             Item *item = items[rand];
             tempList.push_back(item);
@@ -123,11 +123,9 @@ void ZorkUL::generateItems(){
         // -2 at the 2nd last end of item[] -3 3xkeys
     for(int i = itemArraySize-2-3; i < itemArraySize-2; ++i){
         keycombination += items[i]->shortDescription();
-        character->addItem(*items[i]);
+//        character->addItem(*items[i]);
     }
-
     character->setKeyCombination(keycombination);
-
 }
 
 
@@ -211,10 +209,10 @@ inline void ZorkUL::evaluateItem(Item* item){
     switch(item->getValue()){
     case -3 :
     case -2 :
-    case -1 : currentRoom->removeItemFromRoom(item->shortDescription());
+    case -1 :
         allKeys();
-        break;
     default :
+        currentRoom->removeItemFromRoom(item->shortDescription());
         break;
     }
 }
@@ -244,12 +242,10 @@ bool ZorkUL::processCommand(Command command) {
             if(item == NULL){
                 cout << "item not found" << endl;
             } else {
-//                evaluateItem(item); //nicely handled
+                evaluateItem(item); //nicely handled
                 if(character->addItem(*item)){ //change
                     cout << character->longDescription() << endl;    //check if he has a weapon
                     cout << "item " + item->shortDescription() + " added to inventory" << endl;
-
-
                 } else{ //inventory is full
                     cout << "your character already has too many items\ndrop some!" << endl;
                 }
@@ -258,8 +254,15 @@ bool ZorkUL::processCommand(Command command) {
     }
 
     else if(commandWord.compare("attack") == 0){
-        if(isEnemyPresent())
+        if(isEnemyPresent()){
             character->attackOn(currentRoom->getEnemy());
+            character->decreaseHealth(currentRoom->getEnemy()->getAttack());
+//            character->joust(character->getAttack(), currentRoom->getEnemy()->shortDescription());
+            cout << character->getHealth() << endl;
+            if(character->getHealth()<0){
+                endGame();
+            }
+        }
     }
     else if (commandWord.compare("equip") == 0)
     {
@@ -290,20 +293,20 @@ bool ZorkUL::processCommand(Command command) {
             printHelp();
             return false;
         }
-//            else if (command.getSecondWord().compare("map") == 0)
-//            {
-//                cout << "[h] --- [f] --- [g]" << endl;
-//                cout << "         |         " << endl;
-//                cout << "         |         " << endl;
-//                cout << "[c] --- [a] --- [b]" << endl;
-//                cout << "         |         " << endl;
-//                cout << "         |         " << endl;
-//                cout << "[i] --- [d] --- [e]" << endl;
-//                cout << "-------------------" << endl;
-//                cout << "-[final room]-" << endl;
+        else if (command.getSecondWord().compare("map") == 0)
+        {
+            cout << "[h] --- [f] --- [g]" << endl;
+            cout << "         |         " << endl;
+            cout << "         |         " << endl;
+            cout << "[c] --- [a] --- [b]" << endl;
+            cout << "         |         " << endl;
+            cout << "         |         " << endl;
+            cout << "[i] --- [d] --- [e]" << endl;
+            cout << "-------------------" << endl;
+            cout << "-[final room]-" << endl;
 
-//                return false;
-//            }
+            return false;
+        }
     }
 
     else if (commandWord.compare("quit") == 0) {
@@ -412,10 +415,14 @@ void ZorkUL::nextRoom(Room* nextRoom){
 
 void ZorkUL::teleport(){
     //room between 0 and 8
-    Room* next = m_rooms.at(random(0,8));
-    nextRoom(next);
+    if(currentRoom != boss){
+        Room* next = m_rooms.at(random(0,8));
+        nextRoom(next);
+    }
 }
 
-void ZorkUL::openBossDoor(){
+void ZorkUL::endGame(){
 
+    delete character;   //destructor call of character
 }
+

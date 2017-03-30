@@ -106,5 +106,5 @@ void Game::on_itemClicked(QModelIndex index){
 
 Game::~Game()
 {
-
+//    delete zork;
 }

@@ -10,6 +10,7 @@ private:
 
 public:
 	Parser();
+    virtual ~Parser();
 	Command* getCommand();
 	void showCommands();
 };

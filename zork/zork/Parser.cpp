@@ -4,6 +4,10 @@ Parser::Parser() {
 	commands = new CommandWords();
 }
 
+Parser::~Parser(){
+
+}
+
 Command* Parser::getCommand() {
 	string inputLine = ""; // will hold the full input line
 	string word1;

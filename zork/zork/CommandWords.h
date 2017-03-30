@@ -13,6 +13,7 @@ private:
 
 public:
 	CommandWords();
+    virtual ~CommandWords();
 	bool isCommand(string aString);
 	void showAll();
 };

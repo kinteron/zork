@@ -6,6 +6,10 @@ Weapon::Weapon(string inDescription, int inValue, int durability, float inWeight
     this->durability = durability;
 }
 
+Weapon::~Weapon(){
+
+}
+
 int Weapon::getDurability() const
 {
     return durability;

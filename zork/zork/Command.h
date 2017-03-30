@@ -12,6 +12,7 @@ private:
 
 public:
     Command(string firstWord = "", string secondWord = "");
+    virtual ~Command();
 	string getCommandWord();
 	string getSecondWord();
 	bool isUnknown();

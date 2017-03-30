@@ -29,6 +29,7 @@ private:
 public:
     int numberOfItems();
     Room(string description);
+    virtual ~Room();
 	void setExits(Room *north, Room *east, Room *south, Room *west);
 	string shortDescription();
 	string longDescription();

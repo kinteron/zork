@@ -95,6 +95,10 @@ vector<Item> Room::getItemsInRoom() const{
     return this->itemsInRoom;
 }
 
+Room::~Room(){
+    delete enemy;   //calls enemy destructor
+}
+
 Item* Room::isItemInRoom(string inString)
 {
     for(int i = 0; i < itemsInRoom.size(); ++i){
