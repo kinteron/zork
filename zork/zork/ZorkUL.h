@@ -83,9 +83,10 @@ public slots:
     bool takeItem(QString itemName);
     void fight(void);
 
+
 signals:
     void updateListView(void);
-
+    void disconnectEverything(void);
 
 public:
     Room* getBossRoom();

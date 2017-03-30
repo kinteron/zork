@@ -34,11 +34,13 @@ public:
     string shortDescription();
     string longDescription();
     string getFunfact() const;
+    int durability;
 
     float getWeight();
     void setWeight(float weightKG);
     void setValue(int value);
     int getValue();
+    virtual int decreaseDurability();
 
 
     //operator overloading

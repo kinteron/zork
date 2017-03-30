@@ -138,7 +138,7 @@ Character::~Character(){
 }
 
 //overloaded
-bool Character::equipItem(Weapon &weapon, int bonus){
+bool Character::equipItem(Weapon &weapon){
     return equipItem(&weapon);
 }
 

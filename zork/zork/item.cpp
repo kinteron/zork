@@ -13,6 +13,11 @@ Item::~Item(){
 
 }
 
+int Item::decreaseDurability(){
+    if(durability != 0)
+        return durability--;
+    return 0;
+}
 
 void Item::setWeight(float inWeightKG)
 {

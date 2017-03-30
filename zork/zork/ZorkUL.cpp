@@ -257,6 +257,9 @@ bool ZorkUL::processCommand(Command command) {
         if(isEnemyPresent()){
             character->attackOn(currentRoom->getEnemy());
             character->decreaseHealth(currentRoom->getEnemy()->getAttack());
+            if(character->getEquippedItem() != 0){
+                character->getEquippedItem()->decreaseDurability(); //equipped gets 0 at some point, but it works
+            }
 //            character->joust(character->getAttack(), currentRoom->getEnemy()->shortDescription());
             cout << character->getHealth() << endl;
             if(character->getHealth()<0){
@@ -422,7 +425,6 @@ void ZorkUL::teleport(){
 }
 
 void ZorkUL::endGame(){
-
+    emit disconnectEverything();    //emit is just a hint not a command
     delete character;   //destructor call of character
 }
-

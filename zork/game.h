@@ -28,6 +28,7 @@ private slots:
     void on_itemDoubleClicked(QModelIndex index);
     void update();
     void onEquip();
+    void onDisconnectEverything(void);
 
 private:
     Ui::Game *ui;

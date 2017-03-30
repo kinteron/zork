@@ -63,7 +63,7 @@ public:
 
     //setter
     bool equipItem(Item *item = 0);     //value to equipped (pointer)
-    bool equipItem(Weapon &weapon, int bonus = 0); //overloaded function
+    bool equipItem(Weapon &weapon); //overloaded function
 
     Item *fromInventory(string name);
     //template 'overloading'

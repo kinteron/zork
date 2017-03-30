@@ -66,6 +66,8 @@ Game::Game(QWidget *parent)
     connect(weapon, SIGNAL(released()), this, SLOT(update()));
     connect(equip, SIGNAL(released()), this, SLOT(onEquip()));
 
+    connect(&zork, SIGNAL(disconnectEverything()), this, SLOT(onDisconnectEverything()));
+
     QListWidgetItem item = QListWidgetItem();
     //enemyStats onClick
 }
@@ -102,6 +104,35 @@ void Game::on_itemClicked(QModelIndex index){
     QVariant stringData = model->data(index, 0);  //displayRole 0 for QString text
     ui->enemyStats->clear();
     ui->enemyStats->addItem(zork.getItemDescription(stringData.toString().toStdString()));
+}
+
+void Game::onDisconnectEverything(){
+    //just take all connections from above and 'cut' them
+    disconnect(ui->btnNorth, SIGNAL(released()), mapper, SLOT(map()));
+    disconnect(ui->btnSouth, SIGNAL(released()), mapper, SLOT(map()));
+    disconnect(ui->btnWest, SIGNAL(released()), mapper, SLOT(map()));
+    disconnect(ui->btnEast, SIGNAL(released()), mapper, SLOT(map()));
+    disconnect(mapper, SIGNAL(mapped(QString)), mapper, SLOT(map()));
+
+    disconnect(mapper, SIGNAL(mapped(QString)), &zork, SLOT(going(QString)));
+    disconnect(ui->btnTeleport, SIGNAL(released()), &zork, SLOT(teleport()));
+
+    ui->listItems->selectionModel()->disconnect(ui->listItems, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
+    ui->listItems->selectionModel()->disconnect(ui->listItems, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_itemDoubleClicked(QModelIndex)));
+
+    //enemy
+    ui->enemyStats->selectionModel()->disconnect(ui->listItems, SIGNAL(clicked(QModelIndex)), this, SLOT(on_itemClicked(QModelIndex)));
+    ui->enemyStats->disconnect(&zork, SIGNAL(updateListView()), this, SLOT(update()));
+
+    disconnect(ui->btnWeapon, SIGNAL(released()), &zork, SLOT(fight()));
+
+    disconnect(ui->btnWeapon, SIGNAL(released()), this, SLOT(update()));
+    disconnect(ui->btnEquip, SIGNAL(released()), this, SLOT(onEquip()));
+
+    disconnect(&zork, SIGNAL(disconnectEverything()), this, SLOT(onDisconnectEverything()));
+
+    ui->enemyStats->clear();
+    ui->enemyStats->addItem(QString("GAME OVER"));
 }
 
 Game::~Game()
