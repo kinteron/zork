@@ -84,7 +84,7 @@ void ZorkUL::generateItems(){
     items[16] = new Weapon("terminator 9999", 99, 5, 55.56f, "where did you find this murderous weapon?\nthe enemy which can withstand THIS weapon has to be born yet\nyou can beat the endboss like nothing\ngood lu... just win!");
 
     //normal / standard items
-    items[6] = new Item("old wrinkled book");
+    items[6] = new Item("old wrinkled book",1 ,0.5f, "something's written on the bac: type the key names in order with no spaces");
     items[7] = new Item("toothbrush", 0, .05f, "you should use it though");
     items[8] = new Item("slime");
     items[9] = new Item("toiletpaper", 1, 0.01f, "seriously?");
@@ -120,8 +120,9 @@ void ZorkUL::generateItems(){
     }
 
     string keycombination;
-    for(int i = 17; i < 20; ++i){
-        keycombination += items[i]->shortDescription() + " ";
+        // -2 at the 2nd last end of item[] -3 3xkeys
+    for(int i = itemArraySize-2-3; i < itemArraySize-2; ++i){
+        keycombination += items[i]->shortDescription();
         character->addItem(*items[i]);
     }
 
@@ -170,8 +171,7 @@ void ZorkUL::createRooms()  {
     g->setExits(NULL, NULL, NULL, f);
     h->setExits(NULL, f, NULL, NULL);
     i->setExits(NULL, d, NULL, NULL);
-
-//    boss->setExits(NULL,NULL,NULL,NULL);
+    boss->setExits(NULL,NULL,NULL,NULL);
 
     printWelcome();
     nextRoom(a);
@@ -231,7 +231,8 @@ bool ZorkUL::processCommand(Command command) {
 
     if(commandWord.compare("go") == 0){
         goRoom(command);
-        spawnEnemy();
+        if(currentRoom != boss)
+            spawnEnemy();
     }
 
     else if (commandWord.compare("take") == 0)
@@ -243,7 +244,7 @@ bool ZorkUL::processCommand(Command command) {
             if(item == NULL){
                 cout << "item not found" << endl;
             } else {
-                evaluateItem(item); //nicely handled
+//                evaluateItem(item); //nicely handled
                 if(character->addItem(*item)){ //change
                     cout << character->longDescription() << endl;    //check if he has a weapon
                     cout << "item " + item->shortDescription() + " added to inventory" << endl;
@@ -260,20 +261,19 @@ bool ZorkUL::processCommand(Command command) {
         if(isEnemyPresent())
             character->attackOn(currentRoom->getEnemy());
     }
-
     else if (commandWord.compare("equip") == 0)
     {
         if(command.hasSecondWord()){
-            cout << command.getSecondWord().c_str() << endl;
-            cout << character->getKeyCombination().c_str() << endl;
-            if(command.getSecondWord().compare(character->getKeyCombination())){
-                    //dirty
-                currentRoom->setExits(NULL,NULL,NULL,NULL);
-                currentRoom->addEnemy("super-mega boss o'manian", 2000);
+            if(character->checkCombination(command.getSecondWord())==0){
+                //dirty
+                boss = new Room("boss-room");
+                boss->addEnemy("super-mega boss", 2000);
+                currentRoom = boss;
+                cout << "boss appeared" << endl;
                 return false;
             }
 
-            else if(character->equipItem(character->fromInventory(command.getSecondWord()))){ //passing itemName
+            if(character->equipItem(character->fromInventory(command.getSecondWord())) != 0){ //passing itemName
                 //emit event; update GUI
                 cout << "equipped " << character->getEquippedItem()->shortDescription() << endl;
                 return true;
@@ -284,7 +284,7 @@ bool ZorkUL::processCommand(Command command) {
             }
         }
 
-        if(command.getSecondWord().compare("character")){
+        if(command.getSecondWord().compare("character") == 0){
             cout << character->longDescription() << endl;
         } else if (command.getSecondWord().compare("info") == 0){
             printHelp();
@@ -330,6 +330,10 @@ QString ZorkUL::getItemValue() const{
         return QString(character->getEquippedItem()->getValue());
     }
     return QString("");
+}
+
+Room *ZorkUL::getBossRoom(){
+    return this->boss;
 }
 
 QString ZorkUL::getItemDurability() const{

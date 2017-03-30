@@ -112,10 +112,14 @@ string Character::getKeyCombination(){
     return this->keyCombination;
 }
 
-Item *Character::fromInventory(string name){
-    if(keyCombination.compare(name)){   //trimming would be nice
+Item *Character::checkCombination(string combination){
+    if(keyCombination.compare(combination)){   //trimming would be nice
         return &Item("master-key", -5, 1.f, "good luck!");
     }
+    return 0;
+}
+
+Item *Character::fromInventory(string name){
     for(int i = 0; i < inventory.size(); ++i){
         Item *it = &(inventory.at(i));
         if(it->shortDescription().compare(name) == 0){

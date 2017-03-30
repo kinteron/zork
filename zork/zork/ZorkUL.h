@@ -40,6 +40,7 @@ private:
     Character *character;   //pointing to a new reference
     Parser parser;
     Room *currentRoom;  //points to a room
+    Room *boss;
 
     void createRooms();
 
@@ -87,6 +88,7 @@ signals:
 
 
 public:
+    Room* getBossRoom();
     ZorkUL(QObject *parent = 0);    //Threads are operating with QObjects, by default the parent is currently this class (has no parents)
 //    void play();    //calls game routine    //should emit the signal whenever the thread is done
 //	string go(string direction);

@@ -12,7 +12,7 @@
 using namespace std;
 
 
-static const string STORY = "wants upon a time... save this sh**\nsome guy just fell down a mountain and he wakes up in a cave-like dungeon";
+static const string STORY = "once upon a time... save this sh**\nsome guy just fell down a mountain and he wakes up in a cave-like dungeon";
 static const string TRIGGER = "it looks like the keys can be combined somehow...";
 
 class Character {
@@ -47,6 +47,7 @@ public:
     string shortDescription() const;    //getter
     string longDescription();
     string getKeyCombination();
+    Item * checkCombination(string combination);
 
     void increaseHealth(const float value);   //when lvlUp()
     //getter
