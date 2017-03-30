@@ -69,7 +69,7 @@ public:
     //template 'overloading'
     //when enemy does action
 
-    template <typename Type> void joust(Type attribute1, Type attribute2);
+    template <typename Type> void joust(Type attribute1, Type attribute2);  //compare player's 'smt' with enemy's 'smt'
 
     void damage(Enemy *foe);
 
